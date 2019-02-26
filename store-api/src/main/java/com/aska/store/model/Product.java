@@ -1,9 +1,9 @@
-package com.aska.store.entity;
+package com.aska.store.model;
 
 /**
- * Created by askalaveeska on 26/02/19.
+ * Created by askalaveeska on 27/02/19.
  */
-public class ProductEntity {
+public class Product {
 
     private long id;
     private String name;
