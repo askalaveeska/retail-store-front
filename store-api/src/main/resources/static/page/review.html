@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Cart Page</title>
+    <title>Product list Page</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
     <style>
     /* Remove the navbar's default rounded borders and increase the bottom margin */
@@ -35,6 +34,9 @@
         <h1>Online Store</h1>
         <p>Mission, Vission & Values</p>
     </div>
+
+
+
 </div>
 
 <nav class="navbar navbar-inverse">
@@ -63,13 +65,19 @@
 </nav>
 
 <div class="container">
+
+
+    <h2>Review Your Orders:</h2>
+
+</div>
+
+<div class="container">
     <table class="table table-hover">
         <thead>
         <tr>
             <th colspan="2">Product Details</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th >Remove</th>
         </tr>
         </thead>
         <tbody>
@@ -77,112 +85,78 @@
             <td><img src="../image/default_image.jpg" style="width: 50px; height: 50px;" align="center"/></td>
             <td>John</td>
             <td>
-                <div class="form-group" >
-                    <select class="form-control" id="sel1" placeholder="QTY" style="width: 50px;">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
+                <span>2</span>
             </td>
-            <td>john@example.com</td>
-            <td >
-                <a href="#">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </a>
-            </td>
+            <td><div>Rs. 500</div></td>
         </tr>
         <tr>
             <td><img src="../image/default_image.jpg" style="width: 50px; height: 50px;" align="center"/></td>
             <td>John</td>
             <td>
-                <div class="form-group" >
-                    <select class="form-control" id="sel1" placeholder="QTY" style="width: 50px;">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
+                <span>2</span>
             </td>
             <td>mary@example.com</td>
-            <td >
-                <a href="#">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </a>
-            </td>
         </tr>
         <tr>
             <td><img src="../image/default_image.jpg" style="width: 50px; height: 50px;" align="center"/></td>
             <td>John</td>
             <td>
-                <div class="form-group" >
-                    <select class="form-control" id="sel1" placeholder="QTY" style="width: 50px;">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
+               <span>2</span>
             </td>
             <td>july@example.com</td>
-            <td >
-                <a href="#">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </a>
-            </td>
         </tr>
         </tbody>
     </table>
 
 </div>
-<form class="form" action="review.html">
+
+
+
+
 <div class="container">
     <div class="row">
-        <div class="col-sm-4" style="text-align:right;">
-
-                <div class="form-group align-middle">
-                    <input type="email" class="form-control" id="email" placeholder="COUPON CODE">
-                </div>
-
-        </div>
-        <div class="col-sm-4" style="text-align:left;">
-            <a href="#" class="btn btn-info" >
-                APPLY
-            </a>
+        <div class="col-sm-8">
         </div>
         <div class="col-sm-4">
             <table class="table table-condensed">
-               <tbody>
-               <tr>
-                   <td><span>SUB TOTAL</span></td>
-                   <td>Rs. 150</td>
-               </tr>
-               <tr>
-                   <td><span>DELIVERY</span></td>
-                   <td>Rs. 0</td>
-               </tr>
-               <tr>
-                   <td><span>DISCOUNT</span></td>
-                   <td>Rs. 0</td>
-               </tr>
-               <tr class="active">
-                   <td>TOTAL</td>
-                   <td>Rs. 150</td>
-               </tr>
-               </tbody>
+                <thead>
+                <th colspan="2">
+                    CART SUMMARY :
+                </th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span>SUB TOTAL</span></td>
+                    <td>Rs. 150</td>
+                </tr>
+                <tr>
+                    <td><span>DELIVERY</span></td>
+                    <td>Rs. 0</td>
+                </tr>
+                <tr>
+                    <td><span>DISCOUNT</span></td>
+                    <td>Rs. 0</td>
+                </tr>
+                <tr class="active">
+                    <td>TOTAL</td>
+                    <td>Rs. 150</td>
+                </tr>
+                <tr style="text-align:right;">
+                    <td colspan="2">
+                        <form class="form-inline" action="confirmation.html">
+                            <button type="submit" class="btn btn-danger">Place Order</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
-<div class="container">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Continue</button>
-</div>
-</form>
+
+
+
+
 
 <footer class="container-fluid text-center">
     <p>Online Store Copyright</p>
