@@ -8,6 +8,4 @@ public class CatagoryEntity {
     private String name;
     private String description;
 
-    private Set<ProductGroupProductEntity> products;
-
 }
