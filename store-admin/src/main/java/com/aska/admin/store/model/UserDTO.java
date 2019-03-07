@@ -1,29 +1,25 @@
-package com.aska.admin.store.entity;
+package com.aska.admin.store.model;
 
-import javax.persistence.*;
+public class UserDTO {
 
-/**
- * Created by askalaveeska on 26/02/19.
- */
-@Entity
-@Table(name = "user")
-public class UserEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long id;
-    @Column(name = "firstname")
     private String firstName;
-    @Column(name = "lastname")
     private String lastName;
-    @Column(name = "password")
     private String password;
-    @Column(name = "email")
     private String email;
-    @Column(name = "phone_number")
     private int phoneNumber;
 
+    public UserDTO() {
+    }
+
+    public UserDTO(long id, String firstName, String lastName, String password, String email, int phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 
     public long getId() {
         return id;
@@ -72,4 +68,6 @@ public class UserEntity {
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+
 }
