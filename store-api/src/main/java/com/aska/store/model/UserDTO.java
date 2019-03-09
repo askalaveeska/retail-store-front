@@ -1,15 +1,33 @@
-package com.aska.store.entity;
+package com.aska.store.model;
 
-/**
- * Created by askalaveeska on 26/02/19.
- */
-public class UserEntity {
+public class UserDTO {
+
+    private long id;
     private String firstName;
     private String lastName;
     private String password;
     private String email;
     private int phoneNumber;
-    private AddressEntity addressEntity;
+
+    public UserDTO() {
+    }
+
+    public UserDTO(long id, String firstName, String lastName, String password, String email, int phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -51,11 +69,5 @@ public class UserEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public AddressEntity getAddressEntity() {
-        return addressEntity;
-    }
 
-    public void setAddressEntity(AddressEntity addressEntity) {
-        this.addressEntity = addressEntity;
-    }
 }

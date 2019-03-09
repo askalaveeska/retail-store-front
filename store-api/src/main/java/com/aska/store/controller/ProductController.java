@@ -14,8 +14,6 @@ import java.util.List;
  */
 @RestController
 public class ProductController {
-    @Autowired
-    private ProductService productService;
 
     @GetMapping
     public ResponseEntity<List<Product>> getProducts(){
