@@ -124,7 +124,7 @@
         </style>
 </head>
 <body>
-<form class="form-signin"  th:action="login.html" th:object="${login}">
+<form class="form-signin"  th:action="@{/login.action}" th:object="${login}" th:method="post">
     <div class="jumbotron">
         <div class="container text-center">
             <h1>Online Store</h1>
@@ -134,13 +134,20 @@
     <div class="container text-center">
         <h1 class="h3 mb-3 font-weight-normal">Login</h1>
     </div>
+
     <div class="form-label-group">
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" th:field="*{email}" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputEmail">Enter Email ID / Mobile Number</label>
+                <span th:if="${errors} != empty">
+            <span th:each="error : ${errors}">
+
+                <p class="text-danger" th:if="${error.message} == 'email'" th:text="${error.message}"></p>
+            </span>
+        </span>
     </div>
 
     <div class="form-label-group">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" th:field="*{password}" id="inputPassword" class="form-control" placeholder="Password" required>
         <label for="inputPassword">Password</label>
     </div>
 
@@ -152,11 +159,11 @@
     <div class="form-group">
         <p class="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    <input type="submit" class="btn btn-lg btn-primary btn-block" th:value="Login"/>
     <div class="form-group">
         <p class="text-center">Don't have account? <a href="register.html" id="signup">Sign up here</a></p>
     </div>
     <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
-
+</form>
 </body>
 </html>

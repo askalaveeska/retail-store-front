@@ -1,17 +1,37 @@
 package com.aska.store.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * Created by ppalpandi on 3/8/2019.
  */
+@Entity
+@Table(name = "address")
 public class AddressEntity {
 
+    private long id;
+    private String email;
     private String addressLine1;
     private String addressLine2;
     private String addressLine3;
-    private String City;
+    private String city;
     private String state;
     private int postalCode;
     private Long mobileNumber;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getAddressLine1() {
         return addressLine1;
@@ -37,12 +57,20 @@ public class AddressEntity {
         this.addressLine3 = addressLine3;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
     public String getState() {

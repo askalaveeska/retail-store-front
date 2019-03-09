@@ -1,5 +1,11 @@
 package com.aska.store.model;
 
+import com.aska.store.entity.AddressEntity;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.util.Set;
+
 public class UserDTO {
 
     private long id;
@@ -8,6 +14,7 @@ public class UserDTO {
     private String password;
     private String email;
     private int phoneNumber;
+    private Set<AddressEntity> addressEntities;
 
     public UserDTO() {
     }

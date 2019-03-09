@@ -15,10 +15,10 @@ public class LoginDTO {
     @NotBlank
     @NotNull
     @Email
-    @Pattern(regexp=".+@.+\\..+", message="Please provide a valid email address")
+    @Pattern(regexp=".+@.+\\..+", message="Invalid email address")
     private String email;
-    @NotBlank
-    @NotNull
+    @NotBlank(message = "Password can not be empty")
+    @NotNull(message = "Password can not be empty")
     private String password;
 
     public String getEmail() {

@@ -2,19 +2,16 @@ package com.aska.store.controller;
 
 import com.aska.store.common.Constants;
 import com.aska.store.common.RedirectPages;
+import com.aska.store.model.Error;
 import com.aska.store.model.LoginDTO;
 import com.aska.store.model.UserDTO;
 import com.aska.store.service.UserService;
+import com.aska.store.util.StoreUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -27,8 +24,7 @@ import java.util.Set;
  */
 @Controller
 public class LoginController {
-    @Autowired
-    private LoginDTO loginDTO;
+
     @Autowired
     private UserService userService;
 
@@ -38,17 +34,25 @@ public class LoginController {
         return RedirectPages.LANDING_PAGE;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String letMeIn(@Valid LoginDTO loginDTO, BindingResult bindingResult, Model model, HttpServletRequest request){
+    @PostMapping("/login.action")
+    public String authorize(@Valid LoginDTO login, BindingResult bindingResult, Model model, HttpServletRequest request){
+        Set<Error> errors;
         if(bindingResult.hasErrors()){
+            errors = StoreUtil.getErrorResponse(bindingResult);
+            model.addAttribute(Constants.LOGIN_OBJECT,login);
+            model.addAttribute(Constants.ERROR_OBJECT, errors);
             return RedirectPages.LANDING_PAGE;
         }
-        final UserDTO userDTO = userService.getAccountDetails(loginDTO.getEmail(),loginDTO.getPassword());
+        final UserDTO userDTO = userService.getAccountDetails(login.getEmail(),login.getPassword());
             if(Objects.nonNull(userDTO)){
+
                 model.addAttribute(Constants.USER,userDTO);
                 return RedirectPages.PLP_PAGE;
             }
         else {
+                final Error error = new Error();
+                error.setMessage("Invalid Email id or Password");
+                model.addAttribute(error);
                 return RedirectPages.LANDING_PAGE;
             }
     }

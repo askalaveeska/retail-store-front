@@ -1,8 +1,6 @@
 package com.aska.store.entity;
 
-import java.util.Set;
-
-public class CatagoryEntity {
+public class CategoryEntity {
 
     private Long id;
     private String name;

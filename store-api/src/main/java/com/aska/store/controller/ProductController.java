@@ -1,8 +1,6 @@
 package com.aska.store.controller;
 
-import com.aska.store.model.Product;
-import com.aska.store.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.aska.store.model.ProductDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +14,7 @@ import java.util.List;
 public class ProductController {
 
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts(){
+    public ResponseEntity<List<ProductDTO>> getProducts(){
         //gets all the products
         return null;
     }

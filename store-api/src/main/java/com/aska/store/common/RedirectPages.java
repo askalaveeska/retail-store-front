@@ -5,7 +5,7 @@ package com.aska.store.common;
  */
 public class RedirectPages {
 
-    public static final String LANDING_PAGE = "login";
+    public static final String LANDING_PAGE = "login.html";
     public static final String PLP_PAGE = "/plp.html";
     public static final String PDP_PAGE = "/pdp.html";
     public static final String CART_PAGE = "/cart.html";

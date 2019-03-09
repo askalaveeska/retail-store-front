@@ -5,6 +5,7 @@ public class BrandEntity {
     private long id;
     private String name;
     private String description;
+    private String image;
 
     public long getId() {
         return id;
@@ -28,5 +29,13 @@ public class BrandEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

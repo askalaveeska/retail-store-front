@@ -1,6 +1,8 @@
 package com.aska.store.service;
 
-import org.springframework.stereotype.Service;
+import com.aska.store.model.ProductDTO;
+
+import java.util.List;
 
 /**
  * Created by askalaveeska on 26/02/19.
@@ -8,4 +10,9 @@ import org.springframework.stereotype.Service;
 
 public interface ProductService {
 
+    ProductDTO findByProductIdIsActive(final long productId);
+
+    List<ProductDTO> findByProductGroupIdAndStoreId(final long productGroupId, final long storeId);
+
+    List<ProductDTO> findByCategoryId(final long categoryId);
 }

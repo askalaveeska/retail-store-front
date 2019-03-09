@@ -1,15 +1,9 @@
-package com.aska.store.entity;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.Currency;
+package com.aska.store.model;
 
 /**
- * Created by askalaveeska on 26/02/19.
+ * Created by askalaveeska on 27/02/19.
  */
-@Entity
-@Table(name = "product")
-public class ProductEntity {
+public class ProductDTO {
 
     private long productId;
     private long productGroupId;
@@ -29,6 +23,38 @@ public class ProductEntity {
 
     public void setProductId(long productId) {
         this.productId = productId;
+    }
+
+    public long getProductGroupId() {
+        return productGroupId;
+    }
+
+    public void setProductGroupId(long productGroupId) {
+        this.productGroupId = productGroupId;
+    }
+
+    public long getCatagoryId() {
+        return catagoryId;
+    }
+
+    public void setCatagoryId(long catagoryId) {
+        this.catagoryId = catagoryId;
+    }
+
+    public long getCatagoryName() {
+        return catagoryName;
+    }
+
+    public void setCatagoryName(long catagoryName) {
+        this.catagoryName = catagoryName;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public String getProductName() {
@@ -55,22 +81,6 @@ public class ProductEntity {
         this.quantity = quantity;
     }
 
-    public long getCatagoryId() {
-        return catagoryId;
-    }
-
-    public void setCatagoryId(long catagoryId) {
-        this.catagoryId = catagoryId;
-    }
-
-    public long getCatagoryName() {
-        return catagoryName;
-    }
-
-    public void setCatagoryName(long catagoryName) {
-        this.catagoryName = catagoryName;
-    }
-
     public double getSupplierPrice() {
         return supplierPrice;
     }
@@ -93,21 +103,5 @@ public class ProductEntity {
 
     public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
-    }
-
-    public long getProductGroupId() {
-        return productGroupId;
-    }
-
-    public void setProductGroupId(long productGroupId) {
-        this.productGroupId = productGroupId;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 }
