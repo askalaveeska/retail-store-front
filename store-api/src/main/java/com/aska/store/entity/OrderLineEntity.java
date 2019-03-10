@@ -1,6 +1,7 @@
 package com.aska.store.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Currency;
@@ -14,7 +15,7 @@ public class OrderLineEntity {
     private String productName;
     private double price;
     private Long quantity;
-    @OneToOne
+    @ManyToOne
     private OrderEntity order;
 
 }

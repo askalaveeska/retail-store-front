@@ -1,20 +1,20 @@
-package com.aska.store.entity;
+package com.aska.store.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import com.aska.store.entity.ProductEntity;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
-public class ProductGroupEntity {
+/**
+ * Created by ppalpandi on 3/10/2019.
+ */
+@Component
+public class ProductGroupDTO {
 
     private Long productGroupId;
     private Long storeId;
     private String productGroupName;
     private boolean isActive;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product_group", fetch = FetchType.EAGER)
-    @JoinColumn(name = "productGroupId")
     private List<ProductEntity> products;
 
     public Long getProductGroupId() {

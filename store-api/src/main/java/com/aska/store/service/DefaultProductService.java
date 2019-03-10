@@ -39,4 +39,5 @@ public class DefaultProductService implements ProductService {
         final List<ProductEntity> productEntities = productRepository.findByCategoryId(categoryId);
         return productEntities.stream().map(productMapper::from).collect(Collectors.toList());
     }
+
 }
