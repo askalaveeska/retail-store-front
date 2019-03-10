@@ -9,5 +9,7 @@ public class Constants {
     public static final String USER = "user";
     public static final String LOGIN_OBJECT = "login";
     public static final String ERROR_OBJECT = "error";
+    public static final String PRODUCT_GROUP_OBJECT = "pgp";
+    public static final String PRODUCTS_LIST = "products";
 
 }
