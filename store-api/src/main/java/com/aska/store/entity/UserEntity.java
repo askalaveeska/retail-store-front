@@ -28,12 +28,11 @@ public class UserEntity {
     @Column(name = "is_admin")
     private boolean isAdmin;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "store_id")
     private StoreEntity storeEntity;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<AddressEntity> addressEntity;
 
     public Long getUserId() {

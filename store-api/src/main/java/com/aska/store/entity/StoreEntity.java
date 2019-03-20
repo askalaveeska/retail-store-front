@@ -18,11 +18,9 @@ public class StoreEntity {
     private String description;
     @Column(name = "store_image")
     private String image;
-    @OneToMany
-    @JoinColumn(name = "product_group_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.LAZY)
     private List<ProductGroupEntity> productGroup;
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.LAZY)
     private List<UserEntity> users;
 
     public Long getStoreId() {

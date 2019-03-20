@@ -14,9 +14,8 @@ public class ProductGroupEntity {
     private String productGroupName;
     @Column(name = "is_active")
     private boolean isActive;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
-    private List<ProductEntity> products;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "productGroupEntity")
+    private List<ProductGroupProductEntity> products;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "store_id")
     private StoreEntity storeEntity;
@@ -46,11 +45,11 @@ public class ProductGroupEntity {
         isActive = active;
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<ProductGroupProductEntity> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public void setProducts(List<ProductGroupProductEntity> products) {
         this.products = products;
     }
 

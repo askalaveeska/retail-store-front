@@ -29,9 +29,6 @@ public class ProductEntity {
     @Column(name = "discount_price")
     private double discountPrice;
     @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_group_id")
-    private ProductGroupEntity productGroupEntity;
-    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
     @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
@@ -100,14 +97,6 @@ public class ProductEntity {
 
     public void setActive(boolean active) {
         isActive = active;
-    }
-
-    public ProductGroupEntity getProductGroupEntity() {
-        return productGroupEntity;
-    }
-
-    public void setProductGroupEntity(ProductGroupEntity productGroupEntity) {
-        this.productGroupEntity = productGroupEntity;
     }
 
     public CategoryEntity getCategoryEntity() {
