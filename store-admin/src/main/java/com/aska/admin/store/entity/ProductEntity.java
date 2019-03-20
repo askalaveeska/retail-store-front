@@ -1,35 +1,56 @@
 package com.aska.admin.store.entity;
 
-import java.util.Currency;
+import javax.persistence.*;
 
 /**
  * Created by askalaveeska on 26/02/19.
  */
+@Entity
+@Table(name = "product")
 public class ProductEntity {
 
-    private long id;
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_id")
+    private long productId;
+    @Column(name = "is_active")
+    private boolean isActive;
+    @Column(name = "product_name")
+    private String productName;
+    @Column(name = "description")
     private String description;
+    @Column(name = "quantity")
     private int quantity;
-    private Currency supplierPrice;
-    private Currency maxRetailPrice;
-    private Currency discountPrice;
+    @Column(name = "supplier_price")
+    private double supplierPrice;
+    @Column(name = "msrp")
+    private double maxRetailPrice;
+    @Column(name = "discount_price")
+    private double discountPrice;
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private CategoryEntity categoryEntity;
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
+    @JoinColumn(name = "brand_id")
+    private BrandEntity brandEntity;
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private StoreEntity storeEntity;
 
-
-    public long getId() {
-        return id;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getDescription() {
@@ -48,27 +69,59 @@ public class ProductEntity {
         this.quantity = quantity;
     }
 
-    public Currency getSupplierPrice() {
+    public double getSupplierPrice() {
         return supplierPrice;
     }
 
-    public void setSupplierPrice(Currency supplierPrice) {
+    public void setSupplierPrice(double supplierPrice) {
         this.supplierPrice = supplierPrice;
     }
 
-    public Currency getMaxRetailPrice() {
+    public double getMaxRetailPrice() {
         return maxRetailPrice;
     }
 
-    public void setMaxRetailPrice(Currency maxRetailPrice) {
+    public void setMaxRetailPrice(double maxRetailPrice) {
         this.maxRetailPrice = maxRetailPrice;
     }
 
-    public Currency getDiscountPrice() {
+    public double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(Currency discountPrice) {
+    public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
+    }
+
+    public void setCategoryEntity(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
+    }
+
+    public StoreEntity getStoreEntity() {
+        return storeEntity;
+    }
+
+    public void setStoreEntity(StoreEntity storeEntity) {
+        this.storeEntity = storeEntity;
+    }
+
+    public BrandEntity getBrandEntity() {
+        return brandEntity;
+    }
+
+    public void setBrandEntity(BrandEntity brandEntity) {
+        this.brandEntity = brandEntity;
     }
 }

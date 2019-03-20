@@ -1,6 +1,7 @@
 package com.aska.admin.store.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by askalaveeska on 26/02/19.
@@ -8,29 +9,38 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private long id;
+    @Column(name = "user_id")
+    private Long userId;
     @Column(name = "firstname")
     private String firstName;
     @Column(name = "lastname")
     private String lastName;
     @Column(name = "password")
     private String password;
-    @Column(name = "email")
+    @Column(name = "email_id")
     private String email;
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private Long  phoneNumber;
+    @Column(name = "is_user")
+    private boolean isUser;
+    @Column(name = "is_admin")
+    private boolean isAdmin;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id")
+    private StoreEntity storeEntity;
 
-    public long getId() {
-        return id;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<AddressEntity> addressEntity;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -65,11 +75,43 @@ public class UserEntity {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<AddressEntity> getAddressEntity() {
+        return addressEntity;
+    }
+
+    public void setAddressEntity(List<AddressEntity> addressEntity) {
+        this.addressEntity = addressEntity;
+    }
+
+    public boolean isUser() {
+        return isUser;
+    }
+
+    public void setUser(boolean user) {
+        isUser = user;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public StoreEntity getStoreEntity() {
+        return storeEntity;
+    }
+
+    public void setStoreEntity(StoreEntity storeEntity) {
+        this.storeEntity = storeEntity;
     }
 }

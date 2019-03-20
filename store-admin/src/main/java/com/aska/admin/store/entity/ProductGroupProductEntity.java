@@ -1,10 +1,27 @@
 package com.aska.admin.store.entity;
 
-public class ProductGroupProductEntity {
+import javax.persistence.*;
 
-    private Long id;
-    private String groupName;
-    private ProductGroupEntity productGroup;
-    private CatagoryEntity catagory;
+@Entity
+@Table(name = "product_group_product")
+public class ProductGroupProductEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_group_product_id")
+    private Long  productGroupProductId;
+    @Column(name = "product_id")
+    private Long productId;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_group_id")
+    private ProductGroupEntity productGroupEntity;
+
 
 }
+
+
+
+
+
+
+
+
