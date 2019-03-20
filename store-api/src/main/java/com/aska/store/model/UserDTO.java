@@ -4,36 +4,27 @@ import com.aska.store.entity.AddressEntity;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Set;
 
 public class UserDTO {
 
-    private long id;
+    private long userId;
     private String firstName;
     private String lastName;
     private String password;
     private String email;
-    private int phoneNumber;
-    private Set<AddressEntity> addressEntities;
+    private Long phoneNumber;
+    private boolean isUser;
+    private boolean isAdmin;
+    private List<AddressDTO> addressList;
 
-    public UserDTO() {
+    public long getUserId() {
+        return userId;
     }
 
-    public UserDTO(long id, String firstName, String lastName, String password, String email, int phoneNumber) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -68,13 +59,35 @@ public class UserDTO {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    public List<AddressDTO> getAddressList() {
+        return addressList;
+    }
 
+    public void setAddressList(List<AddressDTO> addressList) {
+        this.addressList = addressList;
+    }
+
+    public boolean isUser() {
+        return isUser;
+    }
+
+    public void setUser(boolean user) {
+        isUser = user;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }

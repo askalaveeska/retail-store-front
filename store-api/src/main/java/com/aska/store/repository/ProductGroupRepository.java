@@ -10,9 +10,9 @@ import java.util.List;
  * Created by ppalpandi on 3/9/2019.
  */
 @Repository
-public interface ProductGroupRepository extends CrudRepository {
+public interface ProductGroupRepository extends CrudRepository<ProductGroupEntity,Long> {
 
-    ProductGroupEntity findByStoreId(final long storeId);
+    ProductGroupEntity findByStoreEntityStoreId(final long storeId);
     ProductGroupEntity findByProductGroupId(final long productGroupId);
 
 }

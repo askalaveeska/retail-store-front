@@ -21,7 +21,5 @@ public class RequestEntity {
 	private int status;
 	private Date requestDate;
 	private Date lastUpdatedDate;
-
-
 	
 }

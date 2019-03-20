@@ -1,10 +1,19 @@
 package com.aska.store.entity;
 
-public class BrandEntity {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "brand")
+public class BrandEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "brand_id")
     private long id;
+    @Column(name = "brand_name")
     private String name;
+    @Column(name = "brand_description")
     private String description;
+    @Column(name = "brand_image")
     private String image;
 
     public long getId() {

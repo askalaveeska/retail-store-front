@@ -1,7 +1,6 @@
 package com.aska.store.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Currency;
 
 /**
@@ -11,17 +10,33 @@ import java.util.Currency;
 @Table(name = "product")
 public class ProductEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_id")
     private long productId;
-    private long productGroupId;
-    private long catagoryId;
-    private long catagoryName;
+    @Column(name = "is_active")
     private boolean isActive;
+    @Column(name = "product_name")
     private String productName;
+    @Column(name = "description")
     private String description;
+    @Column(name = "quantity")
     private int quantity;
+    @Column(name = "supplier_price")
     private double supplierPrice;
+    @Column(name = "msrp")
     private double maxRetailPrice;
+    @Column(name = "discount_price")
     private double discountPrice;
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_group_id")
+    private ProductGroupEntity productGroupEntity;
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private CategoryEntity categoryEntity;
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private StoreEntity storeEntity;
 
     public long getProductId() {
         return productId;
@@ -55,22 +70,6 @@ public class ProductEntity {
         this.quantity = quantity;
     }
 
-    public long getCatagoryId() {
-        return catagoryId;
-    }
-
-    public void setCatagoryId(long catagoryId) {
-        this.catagoryId = catagoryId;
-    }
-
-    public long getCatagoryName() {
-        return catagoryName;
-    }
-
-    public void setCatagoryName(long catagoryName) {
-        this.catagoryName = catagoryName;
-    }
-
     public double getSupplierPrice() {
         return supplierPrice;
     }
@@ -95,19 +94,35 @@ public class ProductEntity {
         this.discountPrice = discountPrice;
     }
 
-    public long getProductGroupId() {
-        return productGroupId;
-    }
-
-    public void setProductGroupId(long productGroupId) {
-        this.productGroupId = productGroupId;
-    }
-
     public boolean isActive() {
         return isActive;
     }
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public ProductGroupEntity getProductGroupEntity() {
+        return productGroupEntity;
+    }
+
+    public void setProductGroupEntity(ProductGroupEntity productGroupEntity) {
+        this.productGroupEntity = productGroupEntity;
+    }
+
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
+    }
+
+    public void setCategoryEntity(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
+    }
+
+    public StoreEntity getStoreEntity() {
+        return storeEntity;
+    }
+
+    public void setStoreEntity(StoreEntity storeEntity) {
+        this.storeEntity = storeEntity;
     }
 }

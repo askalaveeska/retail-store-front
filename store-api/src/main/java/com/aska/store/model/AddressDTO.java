@@ -1,36 +1,15 @@
-package com.aska.store.entity;
+package com.aska.store.model;
 
-import javax.persistence.*;
+public class AddressDTO {
 
-/**
- * Created by ppalpandi on 3/8/2019.
- */
-@Entity
-@Table(name = "address")
-public class AddressEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "address_id")
     private long addressId;
-    @Column(name = "address_line1")
     private String addressLine1;
-    @Column(name = "address_line2")
     private String addressLine2;
-    @Column(name = "address_line3")
     private String addressLine3;
-    @Column(name = "city")
     private String city;
-    @Column(name = "state")
     private String state;
-    @Column(name = "postal_code")
     private int postalCode;
-    @Column(name = "country")
     private String country;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
 
     public long getAddressId() {
         return addressId;
@@ -38,22 +17,6 @@ public class AddressEntity {
 
     public void setAddressId(long addressId) {
         this.addressId = addressId;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
     }
 
     public String getAddressLine1() {
@@ -102,5 +65,13 @@ public class AddressEntity {
 
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

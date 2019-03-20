@@ -10,9 +10,7 @@ import java.util.List;
 /**
  * Created by ppalpandi on 3/10/2019.
  */
-@Repository
-@Transactional
-public interface RequestRepository extends CrudRepository{
+public interface RequestRepository{
 
     RequestEntity findByRequestId(final long requestId);
     List<RequestEntity> findAllByUserId(final long userId);

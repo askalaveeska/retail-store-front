@@ -1,23 +1,40 @@
 package com.aska.store.entity;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by askalaveeska on 26/02/19.
  */
+@Entity
+@Table(name = "user")
 public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Long userId;
-    private Long storeId;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
+    @Column(name = "password")
     private String password;
+    @Column(name = "email_id")
     private String email;
-    private int phoneNumber;
-    @OneToMany
+    @Column(name = "phone_number")
+    private Long  phoneNumber;
+    @Column(name = "is_user")
+    private boolean isUser;
+    @Column(name = "is_admin")
+    private boolean isAdmin;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private StoreEntity storeEntity;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private AddressEntity addressEntity;
+    private List<AddressEntity> addressEntity;
 
     public Long getUserId() {
         return userId;
@@ -25,14 +42,6 @@ public class UserEntity {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
     }
 
     public String getFirstName() {
@@ -67,19 +76,43 @@ public class UserEntity {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public AddressEntity getAddressEntity() {
+    public List<AddressEntity> getAddressEntity() {
         return addressEntity;
     }
 
-    public void setAddressEntity(AddressEntity addressEntity) {
+    public void setAddressEntity(List<AddressEntity> addressEntity) {
         this.addressEntity = addressEntity;
+    }
+
+    public boolean isUser() {
+        return isUser;
+    }
+
+    public void setUser(boolean user) {
+        isUser = user;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public StoreEntity getStoreEntity() {
+        return storeEntity;
+    }
+
+    public void setStoreEntity(StoreEntity storeEntity) {
+        this.storeEntity = storeEntity;
     }
 }

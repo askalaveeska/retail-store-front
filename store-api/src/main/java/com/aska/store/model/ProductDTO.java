@@ -7,8 +7,7 @@ public class ProductDTO {
 
     private long productId;
     private long productGroupId;
-    private long catagoryId;
-    private long catagoryName;
+    private long categoryId;
     private boolean isActive;
     private String productName;
     private String description;
@@ -33,20 +32,12 @@ public class ProductDTO {
         this.productGroupId = productGroupId;
     }
 
-    public long getCatagoryId() {
-        return catagoryId;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCatagoryId(long catagoryId) {
-        this.catagoryId = catagoryId;
-    }
-
-    public long getCatagoryName() {
-        return catagoryName;
-    }
-
-    public void setCatagoryName(long catagoryName) {
-        this.catagoryName = catagoryName;
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public boolean isActive() {

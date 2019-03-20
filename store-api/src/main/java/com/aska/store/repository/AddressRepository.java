@@ -10,8 +10,8 @@ import java.util.List;
  * Created by ppalpandi on 3/9/2019.
  */
 @Repository
-public interface AddressRepository extends CrudRepository{
+public interface AddressRepository extends CrudRepository<AddressEntity,Long>{
 
-    List<AddressEntity> findAllByEmail(final String email);
+    List<AddressEntity> findAllByUserEmail(final String email);
 
 }

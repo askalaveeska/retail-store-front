@@ -5,10 +5,12 @@ import com.aska.store.mapper.ProductGroupMapper;
 import com.aska.store.model.ProductGroupDTO;
 import com.aska.store.repository.ProductGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by ppalpandi on 3/10/2019.
  */
+@Service
 public class DefaultProductGroupService implements ProductGroupService {
 
     @Autowired
@@ -19,7 +21,7 @@ public class DefaultProductGroupService implements ProductGroupService {
 
     @Override
     public ProductGroupDTO findByStoreId(long store) {
-        final ProductGroupEntity productGroupEntity =productGroupRepository.findByStoreId(store);
+        final ProductGroupEntity productGroupEntity =productGroupRepository.findByStoreEntityStoreId(store);
         return productGroupMapper.from(productGroupEntity);
     }
 

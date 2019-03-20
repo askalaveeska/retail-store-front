@@ -35,7 +35,7 @@ public class LoginController {
     @Autowired
     private ProductGroupService productGroupService;
 
-    @Value("${cuurent.store.id}")
+    @Value("${current.store.id}")
     private long storeId;
 
     @GetMapping({"/","/landing.action"})
@@ -53,8 +53,9 @@ public class LoginController {
             model.addAttribute(Constants.ERROR_OBJECT, errors);
             return RedirectPages.LANDING_PAGE;
         }
-        final UserDTO userDTO = userService.getAccountDetails(login.getEmail(),login.getPassword());
-            if(Objects.nonNull(userDTO)){
+
+        final UserDTO userDTO =  userService.getUserDetails(login.getEmail(),login.getPassword());
+        if(userDTO.isUser()){
                 final ProductGroupDTO productGroupDTO = productGroupService.findByStoreId(storeId);
                 httpSession.setAttribute(Constants.SESSION_USER,userDTO);
                 model.addAttribute(Constants.PRODUCTS_LIST,productGroupDTO);

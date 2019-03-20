@@ -1,21 +1,25 @@
 package com.aska.store.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
-
+@Entity
+@Table(name = "product_group")
 public class ProductGroupEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_group_id")
     private Long productGroupId;
-    private Long storeId;
+    @Column(name = "product_group_name")
     private String productGroupName;
+    @Column(name = "is_active")
     private boolean isActive;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product_group", fetch = FetchType.EAGER)
-    @JoinColumn(name = "productGroupId")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
     private List<ProductEntity> products;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id")
+    private StoreEntity storeEntity;
 
     public Long getProductGroupId() {
         return productGroupId;
@@ -25,13 +29,6 @@ public class ProductGroupEntity {
         this.productGroupId = productGroupId;
     }
 
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
-    }
 
     public String getProductGroupName() {
         return productGroupName;
@@ -55,5 +52,13 @@ public class ProductGroupEntity {
 
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
+    }
+
+    public StoreEntity getStoreEntity() {
+        return storeEntity;
+    }
+
+    public void setStoreEntity(StoreEntity storeEntity) {
+        this.storeEntity = storeEntity;
     }
 }

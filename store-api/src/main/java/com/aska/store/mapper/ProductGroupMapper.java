@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ProductGroupMapper {
+
     @Autowired
     ProductMapper productMapper;
 
@@ -19,7 +20,7 @@ public class ProductGroupMapper {
         productGroupDTO.setProductGroupId(productGroupEntity.getProductGroupId());
         productGroupDTO.setProductGroupName(productGroupEntity.getProductGroupName());
         productGroupDTO.setProducts(productGroupEntity.getProducts());
-        productGroupDTO.setStoreId(productGroupEntity.getStoreId());
+        //productGroupDTO.setStoreId(productGroupEntity.getStoreId());
         return productGroupDTO;
     }
 

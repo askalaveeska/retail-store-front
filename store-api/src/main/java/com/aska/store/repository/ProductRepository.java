@@ -11,12 +11,12 @@ import java.util.List;
  * Created by askalaveeska on 27/02/19.
  */
 @Repository
-public interface ProductRepository extends CrudRepository{
+public interface ProductRepository extends CrudRepository<ProductEntity,Long>{
 
-    ProductEntity findByProductIdIsActive(final long productId);
+    ProductEntity findByProductIdAndIsActiveTrue(final long productId);
 
-    List<ProductEntity> findByProductGroupIdAndStoreId(final long productGroupId, final long storeId);
+    List<ProductEntity> findByProductGroupEntityProductGroupIdAndStoreEntityStoreId(final long productGroupId, final long storeId);
 
-    List<ProductEntity> findByCategoryId(final long categoryId);
+    List<ProductEntity> findByCategoryEntityCategoryId(final long categoryId);
 
 }

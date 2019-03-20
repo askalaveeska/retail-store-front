@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * Created by ppalpandi on 3/10/2019.
  */
 @Repository
-public interface StoreRepository extends CrudRepository{
+public interface StoreRepository extends CrudRepository<StoreEntity,Long>{
     StoreEntity findByStoreId(final long storeId);
 }
