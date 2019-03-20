@@ -1,6 +1,7 @@
 package com.aska.store.model;
 
 import com.aska.store.entity.ProductEntity;
+import com.aska.store.entity.ProductGroupProductEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class ProductGroupDTO {
     private Long storeId;
     private String productGroupName;
     private boolean isActive;
-    private List<ProductEntity> products;
+    private List<ProductGroupProductEntity> products;
 
     public Long getProductGroupId() {
         return productGroupId;
@@ -49,11 +50,11 @@ public class ProductGroupDTO {
         isActive = active;
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<ProductGroupProductEntity> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public void setProducts(List<ProductGroupProductEntity> products) {
         this.products = products;
     }
 }
