@@ -21,7 +21,7 @@ public class ShoppingCartEntity {
     private double cartTotal;
     @Column(name = "discount_amount")
     private double discountAmout;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "shoppingCart")
     private List<CartItemEntity> cartItems;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

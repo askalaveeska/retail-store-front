@@ -12,7 +12,5 @@ public interface ProductService {
 
     ProductDTO findByProductIdIsActive(final long productId);
 
-    List<ProductDTO> findByProductGroupIdAndStoreId(final long productGroupId, final long storeId);
-
     List<ProductDTO> findByCategoryId(final long categoryId);
 }

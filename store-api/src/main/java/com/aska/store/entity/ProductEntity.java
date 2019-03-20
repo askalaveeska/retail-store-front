@@ -28,10 +28,10 @@ public class ProductEntity {
     private double maxRetailPrice;
     @Column(name = "discount_price")
     private double discountPrice;
-    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
-    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id")
     private BrandEntity brandEntity;
     @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)

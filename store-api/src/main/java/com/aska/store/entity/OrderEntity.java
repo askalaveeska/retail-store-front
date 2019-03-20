@@ -18,8 +18,14 @@ public class OrderEntity {
     private Date lastUpdatedDate;
     @Column(name = "order_email")
     private String orderEmail;
+    @Column(name = "total_price")
+    private Double orderTotal;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
     private List<OrderLineEntity> orderLines;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
+
 
     public long getOrderId() {
         return orderId;
@@ -59,5 +65,21 @@ public class OrderEntity {
 
     public void setOrderLines(List<OrderLineEntity> orderLines) {
         this.orderLines = orderLines;
+    }
+
+    public Double getOrderTotal() {
+        return orderTotal;
+    }
+
+    public void setOrderTotal(Double orderTotal) {
+        this.orderTotal = orderTotal;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

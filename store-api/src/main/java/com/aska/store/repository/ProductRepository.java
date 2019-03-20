@@ -15,8 +15,6 @@ public interface ProductRepository extends CrudRepository<ProductEntity,Long>{
 
     ProductEntity findByProductIdAndIsActiveTrue(final long productId);
 
-    List<ProductEntity> findByProductGroupEntityProductGroupIdAndStoreEntityStoreId(final long productGroupId, final long storeId);
-
     List<ProductEntity> findByCategoryEntityCategoryId(final long categoryId);
 
 }
