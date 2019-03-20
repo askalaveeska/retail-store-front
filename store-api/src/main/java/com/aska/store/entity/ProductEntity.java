@@ -32,6 +32,9 @@ public class ProductEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
     @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private BrandEntity brandEntity;
+    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private StoreEntity storeEntity;
 
@@ -113,5 +116,13 @@ public class ProductEntity {
 
     public void setStoreEntity(StoreEntity storeEntity) {
         this.storeEntity = storeEntity;
+    }
+
+    public BrandEntity getBrandEntity() {
+        return brandEntity;
+    }
+
+    public void setBrandEntity(BrandEntity brandEntity) {
+        this.brandEntity = brandEntity;
     }
 }

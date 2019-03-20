@@ -18,8 +18,7 @@ public class OrderEntity {
     private Date lastUpdatedDate;
     @Column(name = "order_email")
     private String orderEmail;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
     private List<OrderLineEntity> orderLines;
 
     public long getOrderId() {

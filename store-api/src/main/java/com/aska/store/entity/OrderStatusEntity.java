@@ -13,15 +13,15 @@ import javax.persistence.Table;
 public class OrderStatusEntity {
     @Id
     @Column(name = "status_id")
-    private int id;
+    private Long  id;
     @Column(name = "status_description")
     private String statusDescription;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
