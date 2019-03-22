@@ -1,9 +1,9 @@
 package com.aska.admin.store.service;
 
-import com.aska.store.entity.UserEntity;
-import com.aska.store.mapper.UserMapper;
-import com.aska.store.model.UserDTO;
-import com.aska.store.repository.UserRepository;
+import com.aska.admin.store.entity.UserEntity;
+import com.aska.admin.store.mapper.UserMapper;
+import com.aska.admin.store.model.UserDTO;
+import com.aska.admin.store.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,12 @@ public class DefaultUserServiceImpl implements UserService {
 
         final UserEntity userEntity = userRepository.findByEmailAndPasswordAndIsUserTrue(email,password);
 
+        return userMapper.from(userEntity);
+    }
+
+    @Override
+    public UserDTO getAdminDetails(String email, String password) {
+        final UserEntity userEntity = userRepository.findByEmailAndPasswordAndIsAdminTrue(email,password);
         return userMapper.from(userEntity);
     }
 }

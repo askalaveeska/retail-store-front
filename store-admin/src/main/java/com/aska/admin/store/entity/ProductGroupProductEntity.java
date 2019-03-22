@@ -15,7 +15,29 @@ public class ProductGroupProductEntity {
     @JoinColumn(name = "product_group_id")
     private ProductGroupEntity productGroupEntity;
 
+    public Long getProductGroupProductId() {
+        return productGroupProductId;
+    }
 
+    public void setProductGroupProductId(Long productGroupProductId) {
+        this.productGroupProductId = productGroupProductId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public ProductGroupEntity getProductGroupEntity() {
+        return productGroupEntity;
+    }
+
+    public void setProductGroupEntity(ProductGroupEntity productGroupEntity) {
+        this.productGroupEntity = productGroupEntity;
+    }
 }
 
 

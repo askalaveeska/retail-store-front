@@ -1,6 +1,6 @@
 package com.aska.admin.store.repository;
 
-import com.aska.store.entity.RequestEntity;
+import com.aska.admin.store.entity.RequestEntity;
 
 import java.util.List;
 

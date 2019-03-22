@@ -1,9 +1,9 @@
 package com.aska.admin.store.service;
 
-import com.aska.store.entity.ProductGroupEntity;
-import com.aska.store.mapper.ProductGroupMapper;
-import com.aska.store.model.ProductGroupDTO;
-import com.aska.store.repository.ProductGroupRepository;
+import com.aska.admin.store.entity.ProductGroupEntity;
+import com.aska.admin.store.mapper.ProductGroupMapper;
+import com.aska.admin.store.model.ProductGroupDTO;
+import com.aska.admin.store.repository.ProductGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

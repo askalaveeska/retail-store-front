@@ -15,7 +15,7 @@ public class ProductGroupDTO {
     private Long storeId;
     private String productGroupName;
     private boolean isActive;
-    private List<ProductGroupProductEntity> products;
+    private List<ProductGroupProductDTO> productsGroupProducts;
 
     public Long getProductGroupId() {
         return productGroupId;
@@ -49,11 +49,12 @@ public class ProductGroupDTO {
         isActive = active;
     }
 
-    public List<ProductGroupProductEntity> getProducts() {
-        return products;
+    public List<ProductGroupProductDTO> getProductsGroupProducts() {
+        return productsGroupProducts;
     }
 
-    public void setProducts(List<ProductGroupProductEntity> products) {
-        this.products = products;
+    public void setProductsGroupProducts(List<ProductGroupProductDTO> productsGroupProducts) {
+        this.productsGroupProducts = productsGroupProducts;
     }
+
 }

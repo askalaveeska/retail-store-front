@@ -58,8 +58,9 @@ public class LoginController {
             return RedirectPages.LANDING_PAGE;
         }
 
-        final UserDTO userDTO =  userService.getUserDetails(login.getEmail(),login.getPassword());
-        if(userDTO.isUser()){
+        final UserDTO userDTO =  userService.getAdminDetails(login.getEmail(),login.getPassword());
+        if(userDTO.isAdmin()){
+            //final Store
             final ProductGroupDTO productGroupDTO = productGroupService.findByStoreId(storeId);
             httpSession.setAttribute(Constants.SESSION_USER,userDTO);
             model.addAttribute(Constants.PRODUCTS_LIST,productGroupDTO);

@@ -1,7 +1,7 @@
 package com.aska.admin.store.mapper;
 
-import com.aska.store.entity.AddressEntity;
-import com.aska.store.model.AddressDTO;
+import com.aska.admin.store.entity.AddressEntity;
+import com.aska.admin.store.model.AddressDTO;
 import org.springframework.stereotype.Component;
 
 @Component

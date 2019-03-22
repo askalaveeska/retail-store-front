@@ -1,7 +1,7 @@
 package com.aska.admin.store.mapper;
 
-import com.aska.store.entity.UserEntity;
-import com.aska.store.model.UserDTO;
+import com.aska.admin.store.entity.UserEntity;
+import com.aska.admin.store.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

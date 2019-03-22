@@ -7,4 +7,6 @@ public interface UserService {
 
     UserDTO getUserDetails(final String email, final String password);
 
+    UserDTO getAdminDetails(final String email, final String password);
+
 }

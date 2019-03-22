@@ -1,6 +1,7 @@
 package com.aska.admin.store.model;
 
-import com.aska.store.entity.CartItemEntity;
+
+import com.aska.admin.store.entity.CartItemEntity;
 
 import java.util.List;
 

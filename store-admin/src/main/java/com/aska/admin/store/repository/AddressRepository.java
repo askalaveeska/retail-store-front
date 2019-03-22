@@ -1,6 +1,6 @@
 package com.aska.admin.store.repository;
 
-import com.aska.store.entity.AddressEntity;
+import com.aska.admin.store.entity.AddressEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
