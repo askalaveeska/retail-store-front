@@ -2,6 +2,7 @@ package com.aska.store.controller;
 
 import com.aska.store.common.Constants;
 import com.aska.store.common.RedirectPages;
+import com.aska.store.entity.StoreEntity;
 import com.aska.store.model.Error;
 import com.aska.store.model.LoginDTO;
 import com.aska.store.model.ProductGroupDTO;
@@ -11,6 +12,8 @@ import com.aska.store.service.UserService;
 import com.aska.store.util.StoreUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,34 +41,21 @@ public class LoginController {
     @Value("${current.store.id}")
     private long storeId;
 
-    @GetMapping({"/","/landing.action"})
-    public String getLanding(Model model){
-        model.addAttribute(Constants.LOGIN_OBJECT,new LoginDTO());
-        return RedirectPages.LANDING_PAGE;
-    }
+    @PostMapping("/api/login")
+    public ResponseEntity authorize(@Valid @RequestBody final LoginDTO loginDTO, BindingResult bindingResult,HttpSession session){
 
-    @PostMapping("/login.action")
-    public String authorize(@Valid LoginDTO login, BindingResult bindingResult, Model model, HttpServletRequest request, HttpSession httpSession){
-        Set<Error> errors;
         if(bindingResult.hasErrors()){
-            errors = StoreUtil.getErrorResponse(bindingResult);
-            model.addAttribute(Constants.LOGIN_OBJECT,login);
-            model.addAttribute(Constants.ERROR_OBJECT, errors);
-            return RedirectPages.LANDING_PAGE;
+            Set<Error> errors = StoreUtil.getErrorResponse(bindingResult);
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errors);
         }
 
-        final UserDTO userDTO =  userService.getUserDetails(login.getEmail(),login.getPassword());
+        final UserDTO userDTO =  userService.getUserDetails(loginDTO.getEmail(),loginDTO.getPassword());
         if(userDTO.isUser()){
-                final ProductGroupDTO productGroupDTO = productGroupService.findByStoreId(storeId);
-                httpSession.setAttribute(Constants.SESSION_USER,userDTO);
-                model.addAttribute(Constants.PRODUCTS_LIST,productGroupDTO);
-                return RedirectPages.PLP_PAGE;
+            session.setAttribute(Constants.SESSION_USER,userDTO);
+            return ResponseEntity.ok(userDTO);
             }
         else {
-                final Error error = new Error();
-                error.setMessage("Invalid Email id or Password");
-                model.addAttribute(error);
-                return RedirectPages.LANDING_PAGE;
+           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(StoreUtil.getErrorObject("Invalid username or password!"));
             }
     }
     @PostMapping("/logout.out")

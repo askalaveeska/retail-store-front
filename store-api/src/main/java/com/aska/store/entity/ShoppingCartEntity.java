@@ -1,7 +1,6 @@
 package com.aska.store.entity;
 
 import javax.persistence.*;
-import java.util.Currency;
 import java.util.List;
 
 /**

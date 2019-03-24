@@ -1,11 +1,6 @@
 package com.aska.store.model;
 
-import com.aska.store.entity.AddressEntity;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import java.util.List;
-import java.util.Set;
 
 public class UserDTO {
 
@@ -18,6 +13,7 @@ public class UserDTO {
     private boolean isUser;
     private boolean isAdmin;
     private List<AddressDTO> addressList;
+    private StoreDTO storeDTO;
 
     public long getUserId() {
         return userId;
@@ -89,5 +85,13 @@ public class UserDTO {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public StoreDTO getStoreDTO() {
+        return storeDTO;
+    }
+
+    public void setStoreDTO(StoreDTO storeDTO) {
+        this.storeDTO = storeDTO;
     }
 }

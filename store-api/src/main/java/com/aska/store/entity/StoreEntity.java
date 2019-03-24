@@ -2,7 +2,7 @@ package com.aska.store.entity;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+
 @Entity
 @Table(name = "store")
 public class StoreEntity {
@@ -22,6 +22,8 @@ public class StoreEntity {
     private List<ProductGroupEntity> productGroup;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.LAZY)
     private List<UserEntity> users;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.LAZY)
+    private List<AddressEntity> addressEntities;
 
     public Long getStoreId() {
         return storeId;
@@ -77,5 +79,13 @@ public class StoreEntity {
 
     public void setProductGroupId(Long productGroupId) {
         this.productGroupId = productGroupId;
+    }
+
+    public List<AddressEntity> getAddressEntities() {
+        return addressEntities;
+    }
+
+    public void setAddressEntities(List<AddressEntity> addressEntities) {
+        this.addressEntities = addressEntities;
     }
 }

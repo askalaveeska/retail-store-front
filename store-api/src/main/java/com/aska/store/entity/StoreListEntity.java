@@ -1,7 +1,5 @@
 package com.aska.store.entity;
 
-import java.util.Set;
-
 /**
  * Created by ppalpandi on 3/9/2019.
  */

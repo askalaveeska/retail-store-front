@@ -1,22 +1,13 @@
-package com.aska.store.entity;
+package com.aska.store.model;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "category")
-public class CategoryEntity {
+public class CategoryDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "category_id")
     private Long categoryId;
-    @Column(name = "category_name")
     private String name;
-    @Column(name = "category_description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoryEntity")
-    private List<ProductEntity> products;
+    private List<ProductDTO> products;
 
     public Long getCategoryId() {
         return categoryId;
@@ -42,11 +33,11 @@ public class CategoryEntity {
         this.description = description;
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<ProductDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public void setProducts(List<ProductDTO> products) {
         this.products = products;
     }
 }

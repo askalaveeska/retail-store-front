@@ -20,4 +20,17 @@ public class AddressMapper {
         return addressDTO;
     }
 
+    public AddressEntity from(final AddressDTO addressDTO){
+        AddressEntity addressEntity = new AddressEntity();
+        addressDTO.setAddressId(addressDTO.getAddressId());
+        addressDTO.setAddressLine1(addressDTO.getAddressLine1());
+        addressDTO.setAddressLine2(addressDTO.getAddressLine2());
+        addressDTO.setAddressLine3(addressDTO.getAddressLine3());
+        addressDTO.setCity(addressDTO.getCity());
+        addressDTO.setState(addressDTO.getState());
+        addressDTO.setCountry(addressDTO.getCountry());
+        addressDTO.setPostalCode(addressDTO.getPostalCode());
+        return addressEntity;
+    }
+
 }

@@ -1,7 +1,7 @@
 package com.aska.store.entity;
 
 import javax.persistence.*;
-import java.util.Currency;
+
 @Entity
 @Table(name = "order_line")
 public class OrderLineEntity {

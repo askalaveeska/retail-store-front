@@ -22,13 +22,15 @@ public class StoreUtil {
 
     public static Set<Error> getErrorResponse(final BindingResult bindingResult){
         Set<Error> errors = new HashSet<>();
-        bindingResult.getFieldErrors().forEach(fieldError -> {
-            Error error = new Error();
-            error.setField(fieldError.getField());
-            error.setMessage(fieldError.getDefaultMessage());
-            errors.add(error);
-        });
         return errors;
     }
+
+    public static Error getErrorObject(final String field, final String message){
+        return new Error(field,message);
+    }
+    public static Error getErrorObject(final String message){
+        return new Error(message);
+    }
+
 
 }
