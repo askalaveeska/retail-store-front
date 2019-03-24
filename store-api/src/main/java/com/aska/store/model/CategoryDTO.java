@@ -8,6 +8,7 @@ public class CategoryDTO {
     private String name;
     private String description;
     private List<ProductDTO> products;
+    private StoreDTO storeDTO;
 
     public Long getCategoryId() {
         return categoryId;
@@ -39,5 +40,13 @@ public class CategoryDTO {
 
     public void setProducts(List<ProductDTO> products) {
         this.products = products;
+    }
+
+    public StoreDTO getStoreDTO() {
+        return storeDTO;
+    }
+
+    public void setStoreDTO(StoreDTO storeDTO) {
+        this.storeDTO = storeDTO;
     }
 }

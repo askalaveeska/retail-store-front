@@ -22,8 +22,10 @@ public class StoreEntity {
     private List<ProductGroupEntity> productGroup;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.LAZY)
     private List<UserEntity> users;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.EAGER)
     private List<AddressEntity> addressEntities;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.EAGER)
+    private List<CategoryEntity> categoryEntities;
 
     public Long getStoreId() {
         return storeId;
@@ -87,5 +89,13 @@ public class StoreEntity {
 
     public void setAddressEntities(List<AddressEntity> addressEntities) {
         this.addressEntities = addressEntities;
+    }
+
+    public List<CategoryEntity> getCategoryEntities() {
+        return categoryEntities;
+    }
+
+    public void setCategoryEntities(List<CategoryEntity> categoryEntities) {
+        this.categoryEntities = categoryEntities;
     }
 }

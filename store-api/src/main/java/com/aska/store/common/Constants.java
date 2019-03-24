@@ -7,10 +7,13 @@ public class Constants {
 
     public static final String SESSION_USER = "sessionUserObj";
     public static final String SESSION_CART = "sessionCartObj";
-    public static final String USER = "user";
-    public static final String LOGIN_OBJECT = "login";
-    public static final String ERROR_OBJECT = "error";
-    public static final String PRODUCT_GROUP_OBJECT = "pgp";
-    public static final String PRODUCTS_LIST = "products";
+    public static final String SESSION_CATEGORY = "sessionCategoryObj";
+    public static final String USER_OBJ = "user";
+    public static final String LOGIN_OBJ = "login";
+    public static final String ERROR_OBJ = "error";
+    public static final String PRODUCT_OBJ = "productObj";
+    public static final String PRODUCT_GROUP_OBJ = "pgp";
+    public static final String PRODUCTS_LIST_OBJ= "products";
+    public static final String CATEGORY_LIST_OBJ= "categories";
 
 }

@@ -1,5 +1,6 @@
 package com.aska.store.model;
 
+import com.aska.store.entity.CategoryEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class StoreDTO {
     private String image;
     private List<ProductGroupDTO> productGroup;
     private List<AddressDTO> addressList;
+    private List<CategoryDTO> categories;
 
     public Long getStoreId() {
         return storeId;
@@ -69,5 +71,13 @@ public class StoreDTO {
 
     public void setAddressList(List<AddressDTO> addressList) {
         this.addressList = addressList;
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<CategoryDTO> categories) {
+        this.categories = categories;
     }
 }

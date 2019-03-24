@@ -12,6 +12,8 @@ public class StoreMapper {
 
     @Autowired
     private AddressMapper addressMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     public StoreDTO from(final StoreEntity storeEntity){
         final StoreDTO storeDTO = new StoreDTO();
@@ -20,7 +22,9 @@ public class StoreMapper {
         storeDTO.setImage(storeEntity.getImage());
         storeDTO.setStoreName(storeEntity.getStoreName());
         storeDTO.setProductGroupId(storeEntity.getProductGroupId());
+        storeDTO.setProductGroupId(storeEntity.getProductGroupId());
         storeDTO.setAddressList(storeEntity.getAddressEntities().stream().map(addressMapper::from).collect(Collectors.toList()));
+        storeDTO.setCategories(storeEntity.getCategoryEntities().stream().map(categoryMapper::from).collect(Collectors.toList()));
         return storeDTO;
     }
     public StoreEntity from(final StoreDTO storeDTO){
@@ -31,6 +35,7 @@ public class StoreMapper {
         storeEntity.setStoreName(storeDTO.getStoreName());
         storeEntity.setProductGroupId(storeDTO.getProductGroupId());
         storeEntity.setAddressEntities(storeDTO.getAddressList().stream().map(addressMapper::from).collect(Collectors.toList()));
+        storeEntity.setCategoryEntities(storeDTO.getCategories().stream().map(categoryMapper::from).collect(Collectors.toList()));
         return storeEntity;
     }
 }

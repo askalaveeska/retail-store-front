@@ -2,6 +2,7 @@ package com.aska.store.repository;
 
 
 import com.aska.store.entity.ProductEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,11 +14,13 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
+    Long countByIsActiveTrueAndCategoryEntityCategoryId(final long categoryId);
+
     ProductEntity findByProductIdAndIsActiveTrue(final long productId);
 
     ProductEntity findByProductId(final long productId);
 
-    List<ProductEntity> findAllByCategoryEntityCategoryId(final long categoryId);
+    List<ProductEntity> findAllByCategoryEntityCategoryId(final long categoryId, Pageable pageable);
 
     List<ProductEntity> findAllByProductId(List<Long> productId);
 

@@ -17,6 +17,9 @@ public class CategoryEntity {
     private String description;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoryEntity")
     private List<ProductEntity> products;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id")
+    private StoreEntity storeEntity;
 
     public Long getCategoryId() {
         return categoryId;
@@ -48,5 +51,13 @@ public class CategoryEntity {
 
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
+    }
+
+    public StoreEntity getStoreEntity() {
+        return storeEntity;
+    }
+
+    public void setStoreEntity(StoreEntity storeEntity) {
+        this.storeEntity = storeEntity;
     }
 }

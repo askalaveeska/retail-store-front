@@ -1,5 +1,6 @@
 package com.aska.store.controller;
 
+import com.aska.store.common.Constants;
 import com.aska.store.common.RedirectPages;
 import com.aska.store.entity.ProductEntity;
 import com.aska.store.mapper.ProductMapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,13 +30,18 @@ public class ProductController {
     @Autowired
     private ProductMapper productMapper;
 
-    @GetMapping("api/products/{productId}")
-    public ResponseEntity<ProductDTO> getProduct(@PathVariable final long productId){
+    @GetMapping("product.do/{productId}")
+    public ModelAndView getProduct(@PathVariable final long productId, ModelAndView modelAndView){
         final Optional<ProductEntity> productEntity = productRepository.findById(productId);
         if (productEntity.isPresent()){
-            return ResponseEntity.ok(productMapper.from(productEntity.get()));
+            final ProductDTO productDTO = productMapper.from(productEntity.get());
+            modelAndView.addObject(Constants.PRODUCT_OBJ,productDTO);
+            modelAndView.setViewName(RedirectPages.PDP_PAGE);
         }
-        return ResponseEntity.notFound().build();
+        else {
+            modelAndView.setViewName(RedirectPages.COMMON_ERROR_PAGE);
+        }
+        return modelAndView;
     }
 
 }

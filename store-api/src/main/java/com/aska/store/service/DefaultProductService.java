@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * Created by askalaveeska on 27/02/19.
  */
 @Service
-public class DefaultProductService implements ProductService {
+public class DefaultProductService implements ProductService{
 
     @Autowired
     private ProductRepository productRepository;
@@ -44,4 +44,33 @@ public class DefaultProductService implements ProductService {
         return productEntities.stream().map(productMapper::from).collect(Collectors.toList());
     }
 
+    @Override
+    public ProductDTO findByProductIdAndIsActiveTrue(long productId) {
+        return productMapper.from(productRepository.findByProductIdAndIsActiveTrue(productId));
+    }
+
+    @Override
+    public ProductDTO findByProductId(long productId) {
+        return productMapper.from(productRepository.findByProductId(productId));
+    }
+
+    @Override
+    public List<ProductDTO> findAllByCategoryEntityCategoryId(long categoryId) {
+        return productRepository.findAllByCategoryEntityCategoryId(categoryId).stream().map(productMapper::from).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> findAllByProductId(List<Long> productId) {
+        return productRepository.findAllByProductId(productId).stream().map(productMapper::from).collect(Collectors.toList()) ;
+    }
+
+    @Override
+    public List<ProductDTO> findAllByBrandEntityId(final long brandId) {
+        return productRepository.findAllByBrandEntityId(brandId).stream().map(productMapper::from).collect(Collectors.toList()) ;
+    }
+
+    @Override
+    public boolean existsByProductName(final String productName) {
+        return productRepository.existsByProductName(productName);
+    }
 }

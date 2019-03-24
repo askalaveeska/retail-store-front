@@ -3,10 +3,9 @@ package com.aska.store.controller;
 import com.aska.store.common.Constants;
 import com.aska.store.common.RedirectPages;
 import com.aska.store.entity.StoreEntity;
+import com.aska.store.model.*;
 import com.aska.store.model.Error;
-import com.aska.store.model.LoginDTO;
-import com.aska.store.model.ProductGroupDTO;
-import com.aska.store.model.UserDTO;
+import com.aska.store.service.CategoryService;
 import com.aska.store.service.ProductGroupService;
 import com.aska.store.service.UserService;
 import com.aska.store.util.StoreUtil;
@@ -18,11 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -38,27 +39,44 @@ public class LoginController {
     @Autowired
     private ProductGroupService productGroupService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @Value("${current.store.id}")
     private long storeId;
 
-    @PostMapping("/api/login")
-    public ResponseEntity authorize(@Valid @RequestBody final LoginDTO loginDTO, BindingResult bindingResult,HttpSession session){
+    @GetMapping({"/"})
+    public String home(final Model model){
+        model.addAttribute(Constants.LOGIN_OBJ,new LoginDTO());
+        return RedirectPages.LANDING_PAGE;
+    }
+
+    @PostMapping("login.do")
+    public ModelAndView authorize(@Valid final LoginDTO loginDTO, BindingResult bindingResult, HttpSession session, ModelAndView modelAndView){
 
         if(bindingResult.hasErrors()){
             Set<Error> errors = StoreUtil.getErrorResponse(bindingResult);
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errors);
+            modelAndView.addObject(Constants.ERROR_OBJ,errors);
         }
 
         final UserDTO userDTO =  userService.getUserDetails(loginDTO.getEmail(),loginDTO.getPassword());
         if(userDTO.isUser()){
+            final List<CategoryDTO> categoryDTO = categoryService.getCategories(userDTO.getStoreDTO().getStoreId());
+
             session.setAttribute(Constants.SESSION_USER,userDTO);
-            return ResponseEntity.ok(userDTO);
+            session.setAttribute(Constants.SESSION_USER,userDTO);
+
+            modelAndView.addObject(Constants.CATEGORY_LIST_OBJ,categoryDTO);
+            modelAndView.addObject(Constants.USER_OBJ,userDTO);
+            modelAndView.setViewName(RedirectPages.CLP_PAGE);
             }
         else {
-           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(StoreUtil.getErrorObject("Invalid username or password!"));
+            modelAndView.addObject(StoreUtil.getErrorObject("Invalid Username or Password!"));
+            modelAndView.setViewName(RedirectPages.LANDING_PAGE);
             }
+        return modelAndView;
     }
-    @GetMapping("api/logout")
+    @GetMapping("logout.do")
     public ResponseEntity logout(HttpSession httpSession){
         httpSession.invalidate();
         return ResponseEntity.ok().build();
