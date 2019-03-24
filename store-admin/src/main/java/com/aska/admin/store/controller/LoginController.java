@@ -2,11 +2,11 @@ package com.aska.admin.store.controller;
 
 import com.aska.admin.store.common.Constants;
 import com.aska.admin.store.common.RedirectPages;
+import com.aska.admin.store.model.*;
 import com.aska.admin.store.model.Error;
-import com.aska.admin.store.model.LoginDTO;
-import com.aska.admin.store.model.ProductGroupDTO;
-import com.aska.admin.store.model.UserDTO;
 import com.aska.admin.store.service.ProductGroupService;
+import com.aska.admin.store.service.ProductService;
+import com.aska.admin.store.service.StoreService;
 import com.aska.admin.store.service.UserService;
 import com.aska.admin.store.util.StoreUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -38,6 +39,12 @@ public class LoginController {
 
     @Autowired
     private ProductGroupService productGroupService;
+
+    @Autowired
+    private StoreService storeService;
+
+    @Autowired
+    private ProductService productService;
 
     @Value("${current.store.id}")
     private long storeId;
@@ -60,16 +67,12 @@ public class LoginController {
 
         final UserDTO userDTO =  userService.getAdminDetails(login.getEmail(),login.getPassword());
         if(userDTO.isAdmin()){
-            //final Store
-            final ProductGroupDTO productGroupDTO = productGroupService.findByStoreId(storeId);
+            final StoreDTO storeDTO = userDTO.getStoreDTO();
             httpSession.setAttribute(Constants.SESSION_USER,userDTO);
-            model.addAttribute(Constants.PRODUCTS_LIST,productGroupDTO);
-            return RedirectPages.PLP_PAGE;
+            httpSession.setAttribute(Constants.SESSION_STORE,storeDTO);
+            return RedirectPages.STORE_DETAIL_PAGE;
         }
         else {
-            final Error error = new Error();
-            error.setMessage("Invalid Email id or Password");
-            model.addAttribute(error);
             return RedirectPages.LANDING_PAGE;
         }
     }

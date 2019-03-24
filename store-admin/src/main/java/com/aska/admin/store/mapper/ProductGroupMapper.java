@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public class ProductGroupMapper {
 
     @Autowired
-
     ProductGroupProductMapper productGroupProductMapper;
 
     public ProductGroupDTO from (final ProductGroupEntity productGroupEntity){
@@ -26,6 +25,15 @@ public class ProductGroupMapper {
         productGroupDTO.setProductGroupName(productGroupEntity.getProductGroupName());
         productGroupDTO.setProductsGroupProducts(productGroupEntity.getProducts().stream().map(productGroupProductMapper::from).collect(Collectors.toList()));
         return productGroupDTO;
+    }
+
+    public ProductGroupEntity from (final ProductGroupDTO productGroupDTO){
+        final ProductGroupEntity productGroupEntity = new ProductGroupEntity();
+        productGroupEntity.setActive(productGroupDTO.isActive());
+        productGroupEntity.setProductGroupId(productGroupDTO.getProductGroupId());
+        productGroupEntity.setProductGroupName(productGroupDTO.getProductGroupName());
+        productGroupEntity.setProducts(productGroupDTO.getProductsGroupProducts().stream().map(productGroupProductMapper::from).collect(Collectors.toList()));
+        return productGroupEntity;
     }
 
 }

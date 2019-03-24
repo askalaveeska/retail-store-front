@@ -32,6 +32,10 @@ public class AddressEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private StoreEntity storeEntity;
+
     public long getAddressId() {
         return addressId;
     }
@@ -102,5 +106,13 @@ public class AddressEntity {
 
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public StoreEntity getStoreEntity() {
+        return storeEntity;
+    }
+
+    public void setStoreEntity(StoreEntity storeEntity) {
+        this.storeEntity = storeEntity;
     }
 }

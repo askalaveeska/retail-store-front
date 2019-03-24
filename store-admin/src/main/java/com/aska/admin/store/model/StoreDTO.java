@@ -13,6 +13,7 @@ public class StoreDTO {
     private String description;
     private String image;
     private List<ProductGroupDTO> productGroup;
+    private List<AddressDTO> addressList;
 
     public Long getStoreId() {
         return storeId;
@@ -60,5 +61,13 @@ public class StoreDTO {
 
     public void setProductGroup(List<ProductGroupDTO> productGroup) {
         this.productGroup = productGroup;
+    }
+
+    public List<AddressDTO> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<AddressDTO> addressList) {
+        this.addressList = addressList;
     }
 }

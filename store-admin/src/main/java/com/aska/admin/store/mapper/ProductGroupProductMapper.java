@@ -12,4 +12,11 @@ public class ProductGroupProductMapper {
         return productGroupProductDTO;
     }
 
+    public ProductGroupProductEntity from(final ProductGroupProductDTO productGroupProductDTO){
+        final ProductGroupProductEntity productGroupProductEntity = new ProductGroupProductEntity();
+        productGroupProductEntity.setProductGroupProductId(productGroupProductDTO.getProductGroupProductId());
+        productGroupProductEntity.setProductId(productGroupProductDTO.getProductId());
+        return productGroupProductEntity;
+    }
+
 }

@@ -12,5 +12,6 @@ public interface ProductGroupRepository extends CrudRepository<ProductGroupEntit
 
     ProductGroupEntity findByStoreEntityStoreId(final long storeId);
     ProductGroupEntity findByProductGroupId(final long productGroupId);
+    boolean existsByProductGroupName(final String productGroupName);
 
 }

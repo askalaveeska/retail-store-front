@@ -13,6 +13,7 @@ public class UserDTO {
     private boolean isUser;
     private boolean isAdmin;
     private List<AddressDTO> addressList;
+    private StoreDTO storeDTO;
 
     public long getUserId() {
         return userId;
@@ -84,5 +85,13 @@ public class UserDTO {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public StoreDTO getStoreDTO() {
+        return storeDTO;
+    }
+
+    public void setStoreDTO(StoreDTO storeDTO) {
+        this.storeDTO = storeDTO;
     }
 }

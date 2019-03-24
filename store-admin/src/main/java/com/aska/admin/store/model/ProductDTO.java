@@ -6,8 +6,6 @@ package com.aska.admin.store.model;
 public class ProductDTO {
 
     private long productId;
-    private long productGroupId;
-    private long categoryId;
     private boolean isActive;
     private String productName;
     private String description;
@@ -15,6 +13,7 @@ public class ProductDTO {
     private double supplierPrice;
     private double maxRetailPrice;
     private double discountPrice;
+    private CategoryDTO categoryDTO;
 
     public long getProductId() {
         return productId;
@@ -22,22 +21,6 @@ public class ProductDTO {
 
     public void setProductId(long productId) {
         this.productId = productId;
-    }
-
-    public long getProductGroupId() {
-        return productGroupId;
-    }
-
-    public void setProductGroupId(long productGroupId) {
-        this.productGroupId = productGroupId;
-    }
-
-    public long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(long categoryId) {
-        this.categoryId = categoryId;
     }
 
     public boolean isActive() {
@@ -94,5 +77,13 @@ public class ProductDTO {
 
     public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
+    }
+
+    public CategoryDTO getCategoryDTO() {
+        return categoryDTO;
+    }
+
+    public void setCategoryDTO(CategoryDTO categoryDTO) {
+        this.categoryDTO = categoryDTO;
     }
 }

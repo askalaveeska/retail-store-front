@@ -1,5 +1,6 @@
 package com.aska.admin.store.service;
 
+import com.aska.admin.store.entity.ProductEntity;
 import com.aska.admin.store.model.ProductDTO;
 
 import java.util.List;
@@ -10,7 +11,11 @@ import java.util.List;
 
 public interface ProductService {
 
-    ProductDTO findByProductIdIsActive(final long productId);
+    ProductDTO findByProductId(final long productId);
 
-    List<ProductDTO> findByCategoryId(final long categoryId);
+    List<ProductDTO> findAllByCategoryEntityCategoryId(final long categoryId);
+
+    List<ProductDTO> findAllByProductId(List<Long> productId);
+
+    List<ProductDTO> findAllByBrandEntityBrandId(final long brandId);
 }

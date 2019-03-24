@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
@@ -21,6 +22,7 @@ import javax.sql.DataSource;
 //@ComponentScan
 @SpringBootApplication
 @EnableAutoConfiguration
+@CrossOrigin
 public class StoreApplication {
 
 	public static void main(String[] args) {

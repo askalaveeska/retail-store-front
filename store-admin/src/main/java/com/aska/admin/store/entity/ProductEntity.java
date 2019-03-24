@@ -33,9 +33,6 @@ public class ProductEntity {
     @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id")
     private BrandEntity brandEntity;
-    @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private StoreEntity storeEntity;
 
     public long getProductId() {
         return productId;
@@ -107,14 +104,6 @@ public class ProductEntity {
 
     public void setCategoryEntity(CategoryEntity categoryEntity) {
         this.categoryEntity = categoryEntity;
-    }
-
-    public StoreEntity getStoreEntity() {
-        return storeEntity;
-    }
-
-    public void setStoreEntity(StoreEntity storeEntity) {
-        this.storeEntity = storeEntity;
     }
 
     public BrandEntity getBrandEntity() {

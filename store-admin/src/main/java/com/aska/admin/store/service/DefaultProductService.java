@@ -23,15 +23,26 @@ public class DefaultProductService implements ProductService {
     private ProductMapper productMapper;
 
     @Override
-    public ProductDTO findByProductIdIsActive(long productId) {
-        final ProductEntity productEntity = productRepository.findByProductIdAndIsActiveTrue(productId);
+    public ProductDTO findByProductId(long productId) {
+        final ProductEntity productEntity = productRepository.findByProductId(productId);
         return productMapper.from(productEntity);
     }
 
     @Override
-    public List<ProductDTO> findByCategoryId(long categoryId) {
-        final List<ProductEntity> productEntities = productRepository.findByCategoryEntityCategoryId(categoryId);
+    public List<ProductDTO> findAllByCategoryEntityCategoryId(long categoryId) {
+        final List<ProductEntity> productEntities = productRepository.findAllByCategoryEntityCategoryId(categoryId);
         return productEntities.stream().map(productMapper::from).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProductDTO> findAllByProductId(List<Long> productIds) {
+        final List<ProductEntity> productEntities = productRepository.findAllByProductId(productIds);
+        return productEntities.stream().map(productMapper::from).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> findAllByBrandEntityBrandId(long brandId) {
+        final List<ProductEntity> productEntities = productRepository.findAllByBrandEntityBrandId(brandId);
+        return productEntities.stream().map(productMapper::from).collect(Collectors.toList());
+    }
 }

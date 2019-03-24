@@ -17,7 +17,7 @@ public class ProductGroupEntity {
     private boolean isActive;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "productGroupEntity")
     private List<ProductGroupProductEntity> products;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private StoreEntity storeEntity;
 
