@@ -17,5 +17,5 @@ public interface ProductService {
 
     List<ProductDTO> findAllByProductId(List<Long> productId);
 
-    List<ProductDTO> findAllByBrandEntityBrandId(final long brandId);
+    List<ProductDTO> findAllByBrandEntityBrandId(final long storeId);
 }

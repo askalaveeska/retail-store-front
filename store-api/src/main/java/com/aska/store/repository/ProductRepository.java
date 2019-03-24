@@ -13,13 +13,15 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
+    ProductEntity findByProductIdAndIsActiveTrue(final long productId);
+
     ProductEntity findByProductId(final long productId);
 
     List<ProductEntity> findAllByCategoryEntityCategoryId(final long categoryId);
 
     List<ProductEntity> findAllByProductId(List<Long> productId);
 
-    List<ProductEntity> findAllByBrandEntityBrandId(final long brandId);
+    List<ProductEntity> findAllByBrandEntityId(final long brandId);
 
     boolean existsByProductName(final String productName);
 

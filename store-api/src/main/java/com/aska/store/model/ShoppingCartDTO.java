@@ -10,8 +10,7 @@ public class ShoppingCartDTO {
     private Long cartId;
     private double cartTotal;
     private double discountAmount;
-    private List<CartItemEntity> cartItems;
-    private String emailId;
+    private List<ShoppingCartItemDTO> cartItems;
 
     public Long getCartId() {
         return cartId;
@@ -37,19 +36,11 @@ public class ShoppingCartDTO {
         this.discountAmount = discountAmount;
     }
 
-    public List<CartItemEntity> getCartItems() {
+    public List<ShoppingCartItemDTO> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(List<CartItemEntity> cartItems) {
+    public void setCartItems(List<ShoppingCartItemDTO> cartItems) {
         this.cartItems = cartItems;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
     }
 }

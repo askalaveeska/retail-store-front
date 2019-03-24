@@ -1,13 +1,18 @@
 package com.aska.admin.store.service;
 
 import com.aska.admin.store.entity.ProductEntity;
+import com.aska.admin.store.entity.ProductGroupEntity;
+import com.aska.admin.store.mapper.ProductGroupMapper;
 import com.aska.admin.store.mapper.ProductMapper;
 import com.aska.admin.store.model.ProductDTO;
+import com.aska.admin.store.model.ProductGroupDTO;
+import com.aska.admin.store.repository.ProductGroupRepository;
 import com.aska.admin.store.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -20,7 +25,13 @@ public class DefaultProductService implements ProductService {
     private ProductRepository productRepository;
 
     @Autowired
+    private ProductGroupRepository productGroupRepository;
+
+    @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private ProductGroupMapper productGroupMapper;
 
     @Override
     public ProductDTO findByProductId(long productId) {

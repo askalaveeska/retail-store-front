@@ -3,9 +3,11 @@ package com.aska.store.mapper;
 import com.aska.store.entity.CategoryEntity;
 import com.aska.store.model.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class CategoryMapper {
 
     @Autowired

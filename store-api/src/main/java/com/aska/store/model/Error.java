@@ -11,6 +11,9 @@ public class Error {
     private String field;
     private String message;
 
+    public Error() {
+    }
+
     public Error(final String message){
         this.message = message;
     }

@@ -25,7 +25,7 @@ public class UserEntity {
     private Long  phoneNumber;
     @Column(name = "is_user")
     private boolean isUser;
-    @Column(name = "is_")
+    @Column(name = "is_admin")
     private boolean isAdmin;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

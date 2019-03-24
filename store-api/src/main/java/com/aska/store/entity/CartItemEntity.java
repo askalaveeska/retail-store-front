@@ -17,7 +17,7 @@ public class CartItemEntity {
     @Column(name = "product_name")
     private String ProductName;
     @Column(name = "quantity")
-    private int quantity;
+    private long quantity;
     @Column(name = "item_price")
     private double itemPrice;
     @Column(name = "item_discount")
@@ -52,11 +52,11 @@ public class CartItemEntity {
         ProductName = productName;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 

@@ -14,12 +14,10 @@ public class ShoppingCartEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cart_id")
     private Long cartId;
-    @Column(name = "tem_id")
-    private Long cartItemId;
     @Column(name = "cart_total")
     private double cartTotal;
     @Column(name = "discount_amount")
-    private double discountAmout;
+    private double discountAmount;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "shoppingCart")
     private List<CartItemEntity> cartItems;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -42,12 +40,12 @@ public class ShoppingCartEntity {
         this.cartTotal = cartTotal;
     }
 
-    public double getDiscountAmout() {
-        return discountAmout;
+    public double getDiscountAmount() {
+        return discountAmount;
     }
 
-    public void setDiscountAmout(double discountAmout) {
-        this.discountAmout = discountAmout;
+    public void setDiscountAmount(double discountAmount) {
+        this.discountAmount = discountAmount;
     }
 
     public List<CartItemEntity> getCartItems() {
@@ -66,11 +64,4 @@ public class ShoppingCartEntity {
         this.user = user;
     }
 
-    public Long getCartItemId() {
-        return cartItemId;
-    }
-
-    public void setCartItemId(Long cartItemId) {
-        this.cartItemId = cartItemId;
-    }
 }

@@ -58,9 +58,9 @@ public class LoginController {
            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(StoreUtil.getErrorObject("Invalid username or password!"));
             }
     }
-    @PostMapping("/logout.out")
-    public String logout(HttpServletRequest request,HttpSession httpSession){
+    @GetMapping("api/logout")
+    public ResponseEntity logout(HttpSession httpSession){
         httpSession.invalidate();
-        return RedirectPages.LANDING_PAGE;
+        return ResponseEntity.ok().build();
     }
 }

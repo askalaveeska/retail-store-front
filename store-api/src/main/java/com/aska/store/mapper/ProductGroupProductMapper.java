@@ -2,7 +2,9 @@ package com.aska.store.mapper;
 
 import com.aska.store.entity.ProductGroupProductEntity;
 import com.aska.store.model.ProductGroupProductDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductGroupProductMapper {
 
     public ProductGroupProductDTO from(final ProductGroupProductEntity productGroupProductEntity){
