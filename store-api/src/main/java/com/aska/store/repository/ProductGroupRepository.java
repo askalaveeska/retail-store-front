@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ProductGroupRepository extends CrudRepository<ProductGroupEntity,Long> {
 
-    ProductGroupEntity findByStoreEntityStoreId(final long storeId);
+    ProductGroupEntity findByIsActiveTrueAndStoreEntityStoreId(final long storeId);
     ProductGroupEntity findByProductGroupId(final long productGroupId);
     boolean existsByProductGroupName(final String productGroupName);
     List<ProductGroupEntity> findAllByStoreEntityStoreId(final long storeId);

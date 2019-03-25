@@ -7,6 +7,7 @@ import com.aska.store.model.*;
 import com.aska.store.model.Error;
 import com.aska.store.service.CategoryService;
 import com.aska.store.service.ProductGroupService;
+import com.aska.store.service.ProductService;
 import com.aska.store.service.UserService;
 import com.aska.store.util.StoreUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class LoginController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private ProductService productService;
+
     @Value("${current.store.id}")
     private long storeId;
 
@@ -61,12 +65,14 @@ public class LoginController {
 
         final UserDTO userDTO =  userService.getUserDetails(loginDTO.getEmail(),loginDTO.getPassword());
         if(userDTO.isUser()){
-            final List<CategoryDTO> categoryDTO = categoryService.getCategories(userDTO.getStoreDTO().getStoreId());
+
+            final ProductGroupDTO productGroup = productGroupService.findByStoreId(userDTO.getStoreDTO().getStoreId());
+            final List<Long> productIds = productService.getAllProductIdsByProductGroupId(productGroup.getProductGroupId());
+            final List<CategoryDTO> categories =  productService.getCategoriesByProductIds(productIds);
 
             session.setAttribute(Constants.SESSION_USER,userDTO);
-            session.setAttribute(Constants.SESSION_USER,userDTO);
 
-            modelAndView.addObject(Constants.CATEGORY_LIST_OBJ,categoryDTO);
+            modelAndView.addObject(Constants.CATEGORY_LIST_OBJ,categories);
             modelAndView.addObject(Constants.USER_OBJ,userDTO);
             modelAndView.setViewName(RedirectPages.CLP_PAGE);
             }

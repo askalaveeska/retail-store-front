@@ -1,10 +1,14 @@
 package com.aska.store.service;
 
+import com.aska.store.entity.CategoryEntity;
 import com.aska.store.entity.ProductEntity;
 import com.aska.store.entity.ProductGroupEntity;
 import com.aska.store.entity.ProductGroupProductEntity;
+import com.aska.store.mapper.CategoryMapper;
 import com.aska.store.mapper.ProductMapper;
+import com.aska.store.model.CategoryDTO;
 import com.aska.store.model.ProductDTO;
+import com.aska.store.repository.ProductGroupProductRepository;
 import com.aska.store.repository.ProductGroupRepository;
 import com.aska.store.repository.ProductRepository;
 import com.aska.store.repository.StoreRepository;
@@ -28,9 +32,17 @@ public class DefaultProductService implements ProductService{
     private StoreRepository storeRepository;
     @Autowired
     private ProductGroupRepository productGroupRepository;
+    @Autowired
+    private ProductGroupProductRepository productGroupProductRepository;
+
+    @Autowired
+    private ProductGroupService productGroupService;
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     @Override
     public ProductDTO findByProductIdIsActive(long productId) {
@@ -74,5 +86,15 @@ public class DefaultProductService implements ProductService{
     @Override
     public boolean existsByProductName(final String productName) {
         return productRepository.existsByProductName(productName);
+    }
+
+    public List<Long> getAllProductIdsByProductGroupId(final long productGroupId) {
+        return productGroupProductRepository.findAllProductIdByProductGroupEntityProductGroupId(productGroupId);
+    }
+
+    @Override
+    public List<CategoryDTO> getCategoriesByProductIds(List<Long> productIds) {
+        final List<CategoryEntity> categoryEntities =  productRepository.findAllCategoryEntityByProductId(productIds);
+        return categoryEntities.stream().map(categoryMapper::from).collect(Collectors.toList());
     }
 }
