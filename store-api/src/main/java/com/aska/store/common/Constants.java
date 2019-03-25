@@ -12,6 +12,7 @@ public class Constants {
     public static final String LOGIN_OBJ = "login";
     public static final String ERROR_OBJ = "error";
     public static final String PRODUCT_OBJ = "productObj";
+    public static final String CART_OBJ = "cartObj";
     public static final String PRODUCT_GROUP_OBJ = "pgp";
     public static final String PRODUCTS_LIST_OBJ= "products";
     public static final String CATEGORY_LIST_OBJ= "categories";

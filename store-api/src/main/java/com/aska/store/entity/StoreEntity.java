@@ -22,7 +22,7 @@ public class StoreEntity {
     private List<ProductGroupEntity> productGroup;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.LAZY)
     private List<UserEntity> users;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.LAZY)
     private List<AddressEntity> addressEntities;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeEntity", fetch = FetchType.EAGER)
     private List<CategoryEntity> categoryEntities;

@@ -1,6 +1,7 @@
 package com.aska.store.controller;
 
 import com.aska.store.common.Constants;
+import com.aska.store.common.RedirectPages;
 import com.aska.store.entity.ProductEntity;
 import com.aska.store.entity.ShoppingCartEntity;
 import com.aska.store.mapper.ProductMapper;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,49 +48,46 @@ public class CartController {
     private DefaultCartService defaultCartService;
 
 
-    @GetMapping("api/cart")
-    public ResponseEntity loadCart(@SessionAttribute(name = Constants.SESSION_USER)UserDTO userDTO,
-                                   @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO shoppingCartDTO){
+    @GetMapping("launchCart.do")
+    public ModelAndView loadCart(@SessionAttribute(name = Constants.SESSION_USER)UserDTO sessionUser,
+                                 @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart,
+                                 ModelAndView modelAndView){
 
-        if (Objects.nonNull(shoppingCartDTO)){
-            return ResponseEntity.ok(shoppingCartDTO);
-        }
-        else{
-            final ShoppingCartEntity shoppingCartEntity = cartRepository.findByUserUserId(userDTO.getUserId());
-            return ResponseEntity.ok(shoppingCartMapper.from(shoppingCartEntity));
-        }
+        final ShoppingCartDTO cartDTO = defaultCartService.getCart(sessionUser,sessionCart);
+        modelAndView.addObject(Constants.CART_OBJ,cartDTO);
+        modelAndView.setViewName(RedirectPages.CART_PAGE);
+        return modelAndView;
 
     }
 
-    @PostMapping("api/cart")
-    public ResponseEntity addToCart(@Valid @RequestBody ShoppingCartItemDTO shoppingCartItemDTO,
-                                    @SessionAttribute(name = Constants.SESSION_USER) UserDTO userDTO,
+    @PostMapping("pushToCart.do")
+    public ModelAndView addToCart(@Valid @RequestBody ShoppingCartItemDTO shoppingCartItemDTO,
+                                    @SessionAttribute(name = Constants.SESSION_USER) UserDTO sessionUser,
                                     @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart,
-                                    HttpSession session){
-        final ShoppingCartDTO shoppingCartDTO = defaultCartService.addToCart(userDTO,shoppingCartItemDTO,sessionCart);
-        if (Objects.nonNull(shoppingCartDTO)) {
-            session.setAttribute(Constants.SESSION_CART,shoppingCartDTO);
-            return ResponseEntity.ok(shoppingCartDTO);
-        }
-        else
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                                    ModelAndView modelAndView){
+        //need to check if it really updates session cart object
+        sessionCart = defaultCartService.addToCart(sessionUser,shoppingCartItemDTO,sessionCart);
+        modelAndView.setViewName(RedirectPages.CART_PAGE);
+        return modelAndView;
     }
 
-    @DeleteMapping("api/cart/{cartItemId}")
-    public ResponseEntity removeFromCart(@PathVariable final long cartItemId, @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart,
-                                         HttpSession session){
+    @DeleteMapping("removeItem.do/{cartItemId}")
+    public ModelAndView removeFromCart(@PathVariable("cartItemId") final long cartItemId, @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart,
+                                         HttpSession session,ModelAndView modelAndView){
         if (Objects.nonNull(sessionCart)){
             defaultCartService.removeItemFromCart(sessionCart,cartItemId);
-            return ResponseEntity.ok(sessionCart);
         }
-        else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        modelAndView.setViewName(RedirectPages.CART_PAGE);
+        return modelAndView;
 
     }
 
-    public ResponseEntity updateQuantity(final HttpServletRequest request, @SessionAttribute(name = Constants.SESSION_USER) UserDTO userDTO){
-        return null;
+    @PostMapping("updateQuantity.do/{cartItemId}/{quantity}")
+    public ModelAndView updateQuantity(@PathVariable("cartItemId") final long cartItemId, @PathVariable("quantity") final int quantity,
+                                         @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart, ModelAndView modelAndView){
+        final ShoppingCartDTO shoppingCartDTO = defaultCartService.updateItemQuantity(sessionCart,cartItemId,quantity);
+        modelAndView.setViewName(RedirectPages.CART_PAGE);
+        return modelAndView;
     }
 
 }

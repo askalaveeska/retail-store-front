@@ -40,8 +40,9 @@ public class DefaultProductService implements ProductService{
 
     @Override
     public List<ProductDTO> findByCategoryId(long categoryId) {
-        final List<ProductEntity> productEntities = productRepository.findAllByCategoryEntityCategoryId(categoryId);
-        return productEntities.stream().map(productMapper::from).collect(Collectors.toList());
+//        final List<ProductEntity> productEntities = productRepository.findAllByCategoryEntityCategoryId(categoryId);
+//        return productEntities.stream().map(productMapper::from).collect(Collectors.toList());
+        return null;
     }
 
     @Override
@@ -56,7 +57,8 @@ public class DefaultProductService implements ProductService{
 
     @Override
     public List<ProductDTO> findAllByCategoryEntityCategoryId(long categoryId) {
-        return productRepository.findAllByCategoryEntityCategoryId(categoryId).stream().map(productMapper::from).collect(Collectors.toList());
+        //return productRepository.findAllByCategoryEntityCategoryId(categoryId).stream().map(productMapper::from).collect(Collectors.toList());
+        return null;
     }
 
     @Override

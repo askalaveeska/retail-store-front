@@ -32,7 +32,7 @@ public class UserEntity {
     @JoinColumn(name = "store_id")
     private StoreEntity storeEntity;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<AddressEntity> addressEntity;
 
     public Long getUserId() {
