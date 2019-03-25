@@ -16,5 +16,11 @@ public class Constants {
     public static final String PRODUCT_GROUP_OBJ = "pgp";
     public static final String PRODUCTS_LIST_OBJ= "products";
     public static final String CATEGORY_LIST_OBJ= "categories";
+    public static final String ORDER_ID= "orderId";
+    public static final String ORDER_EMAIL= "orderEmail";
+
+    public static final String ORDER_PLACED= "order placed";
+
+
 
 }

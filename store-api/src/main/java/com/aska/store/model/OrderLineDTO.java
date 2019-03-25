@@ -1,26 +1,14 @@
-package com.aska.store.entity;
+package com.aska.store.model;
 
-import javax.persistence.*;
+import org.springframework.stereotype.Component;
 
-@Entity
-@Table(name = "order_line")
-public class OrderLineEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_line_id")
+@Component
+public class OrderLineDTO {
     private Long orderLineId;
-    @Column(name = "product_id")
     private Long productId;
-    @Column(name = "product_name")
     private String productName;
-    @Column(name = "price")
     private double price;
-    @Column(name = "quantity")
     private Long quantity;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id")
-    private OrderEntity order;
 
     public Long getOrderLineId() {
         return orderLineId;
@@ -60,13 +48,5 @@ public class OrderLineEntity {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
-    }
-
-    public OrderEntity getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderEntity order) {
-        this.order = order;
     }
 }

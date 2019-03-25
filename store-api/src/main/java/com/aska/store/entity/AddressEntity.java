@@ -115,4 +115,5 @@ public class AddressEntity {
     public void setStoreEntity(StoreEntity storeEntity) {
         this.storeEntity = storeEntity;
     }
+
 }

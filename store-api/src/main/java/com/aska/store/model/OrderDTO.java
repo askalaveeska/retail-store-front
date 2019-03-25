@@ -1,52 +1,27 @@
-package com.aska.store.entity;
+package com.aska.store.model;
 
-import com.aska.store.model.AddressDTO;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+@Component
+public class OrderDTO {
 
-@Entity
-@Table(name = "order")
-public class OrderEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_id")
     private long orderId;
-    @Column(name = "order_date")
     private Date orderDate;
-    @Column(name = "last_updated_date")
     private Date lastUpdatedDate;
-    @Column(name = "total_price")
-    private Double orderTotal;
-    @Column(name = "order_email")
     private String orderEmail;
-    @Column(name = "phone_number")
     private long phoneNumber;
-    @Column(name = "address_line1")
     private String addressLine1;
-    @Column(name = "address_line2")
     private String addressLine2;
-    @Column(name = "address_line3")
     private String addressLine3;
-    @Column(name = "city")
     private String city;
-    @Column(name = "state")
     private String state;
-    @Column(name = "country")
     private String country;
-    @Column(name = "postal_code")
     private long pinCode;
-    @Column(name = "order_status")
+    private Double orderTotal;
     private String orderStatus;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
-    private List<OrderLineEntity> orderLines;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OrderLineDTO> orderLines;
 
     public long getOrderId() {
         return orderId;
@@ -80,14 +55,6 @@ public class OrderEntity {
         this.orderEmail = orderEmail;
     }
 
-    public List<OrderLineEntity> getOrderLines() {
-        return orderLines;
-    }
-
-    public void setOrderLines(List<OrderLineEntity> orderLines) {
-        this.orderLines = orderLines;
-    }
-
     public Double getOrderTotal() {
         return orderTotal;
     }
@@ -96,12 +63,20 @@ public class OrderEntity {
         this.orderTotal = orderTotal;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public List<OrderLineDTO> getOrderLines() {
+        return orderLines;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setOrderLines(List<OrderLineDTO> orderLines) {
+        this.orderLines = orderLines;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAddressLine1() {
@@ -158,14 +133,6 @@ public class OrderEntity {
 
     public void setPinCode(long pinCode) {
         this.pinCode = pinCode;
-    }
-
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getOrderStatus() {
