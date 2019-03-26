@@ -52,6 +52,7 @@ public class ProductsController {
         else{
             modelAndView.addObject("currentPage",pageNumber);
             modelAndView.addObject("totalPages",nPages);
+            modelAndView.addObject("categoryName",products.get(0).getCategoryDTO().getName());
             modelAndView.addObject(Constants.PRODUCTS_LIST_OBJ,products);
             modelAndView.setViewName(RedirectPages.PLP_PAGE);
         }

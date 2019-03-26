@@ -7,7 +7,7 @@ VALUES
 (1,
 'B-Naturo Products',
 'static/image/b-naturo.png',
-'B-Naturo'):
+'B-Naturo')
 
 
 INSERT INTO `STORE`.`address`
@@ -29,6 +29,27 @@ VALUES
 'India',
 600080,
 'TamilNadu',
+1);
+
+INSERT INTO `STORE`.`user`
+(`user_id`,
+`email_id`,
+`firstname`,
+`is_admin`,
+`is_user`,
+`lastname`,
+`password`,
+`phone_number`,
+`store_id`)
+VALUES
+(1,
+'askalaveeska@gmail.com',
+'Pandiarajan',
+1,
+1,
+'Palpandi',
+'P@ssw0rd',
+9790771076,
 1);
 
 

@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class OrderLineEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "order_line_id")
     private Long orderLineId;
     @Column(name = "product_id")
@@ -17,7 +17,7 @@ public class OrderLineEntity {
     @Column(name = "price")
     private double price;
     @Column(name = "quantity")
-    private Long quantity;
+    private int quantity;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     private OrderEntity order;
@@ -54,11 +54,11 @@ public class OrderLineEntity {
         this.price = price;
     }
 
-    public Long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

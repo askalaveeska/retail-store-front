@@ -1,13 +1,22 @@
 package com.aska.store.model;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class UserDTO {
 
     private long userId;
+    @NotNull
+    @NotEmpty
     private String firstName;
+    @NotNull
+    @NotEmpty
     private String lastName;
     private String password;
+    @NotNull
+    @NotEmpty
     private String email;
     private Long phoneNumber;
     private boolean isUser;

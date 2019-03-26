@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span th:text="${session.store.storeName}"></span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/category.do">Home</a></li>
+                <li class="dropdown active">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li th:each="category : ${session.categories}" th:unless="${category.name} == 'DEFAULT'"><a href="#"><span th:text="${category.name}"></span></a></li>
+                        <li><a href="#">See All </a></li>
+                    </ul>
+                </li>
+                <!--<li><a href="#">Deals</a></li>-->
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> <span thclass="badge">5</span></a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Welcome <span th:text="${session.user.firstName}"></span>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/accountDetails.do">Account Details</a></li>
+                        <li><a href="/changePWD.do">Change Password</a></li>
+                        <li><a href="/logout.do">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</html>

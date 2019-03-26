@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Cart Page</title>
     <meta charset="utf-8">
@@ -28,14 +28,9 @@
     }
   </style>
 </head>
-<body>
+<body style="font-family:Comic san MS; font-size: 14">
 
-<div class="jumbotron">
-    <div class="container text-center">
-        <h1>Online Store</h1>
-        <p>Mission, Vission & Values</p>
-    </div>
-</div>
+<div th:include="/header.html"></div>
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -185,12 +180,7 @@
 </div>
 </form>
 
-<footer class="container-fluid text-center">
-    <p>Online Store Copyright</p>
-    <form class="form-inline">Get Offers:
-        <input type="email" class="form-control" size="50" placeholder="Mobile Number">
-        <button type="button" class="btn btn-danger">GET</button>
-    </form>
-</footer>
+<div th:include="/footer.html"></div>
+
 </body>
 </html>

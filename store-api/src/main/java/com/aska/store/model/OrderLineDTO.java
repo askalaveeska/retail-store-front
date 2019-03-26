@@ -8,7 +8,7 @@ public class OrderLineDTO {
     private Long productId;
     private String productName;
     private double price;
-    private Long quantity;
+    private int quantity;
 
     public Long getOrderLineId() {
         return orderLineId;
@@ -42,11 +42,11 @@ public class OrderLineDTO {
         this.price = price;
     }
 
-    public Long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }

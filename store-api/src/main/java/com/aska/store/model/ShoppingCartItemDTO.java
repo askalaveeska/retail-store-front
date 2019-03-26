@@ -5,7 +5,7 @@ public class ShoppingCartItemDTO {
     private Long itemId;
     private Long productId;
     private String ProductName;
-    private Long quantity;
+    private int quantity;
     private double lineItemPrice;
     private double lineItemDiscount;
     private double LineItemTotal;
@@ -34,11 +34,11 @@ public class ShoppingCartItemDTO {
         ProductName = productName;
     }
 
-    public Long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

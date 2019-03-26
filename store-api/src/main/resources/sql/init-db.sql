@@ -137,7 +137,6 @@ CREATE TABLE `product_group_product` (
 
 CREATE TABLE `shopping_cart` (
   `cart_id` bigint(20) NOT NULL,
-  `tem_id` bigint(20) DEFAULT NULL,
   `cart_total` double DEFAULT NULL,
   `discount_amount` double DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,

@@ -61,12 +61,14 @@ public class CartController {
     }
 
     @PostMapping("pushToCart.do")
-    public ModelAndView addToCart(@Valid @RequestBody ShoppingCartItemDTO shoppingCartItemDTO,
+    public ModelAndView addToCart(@Valid @RequestBody ProductDTO productDTO,
                                     @SessionAttribute(name = Constants.SESSION_USER) UserDTO sessionUser,
                                     @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart,
-                                    ModelAndView modelAndView){
+                                    ModelAndView modelAndView, HttpSession session){
         //need to check if it really updates session cart object
-        sessionCart = defaultCartService.addToCart(sessionUser,shoppingCartItemDTO,sessionCart);
+        sessionCart = defaultCartService.addToCart(sessionUser,productDTO,sessionCart);
+        session.setAttribute(Constants.SESSION_CART,sessionCart);
+        modelAndView.addObject(Constants.CART_OBJ,sessionCart);
         modelAndView.setViewName(RedirectPages.CART_PAGE);
         return modelAndView;
     }

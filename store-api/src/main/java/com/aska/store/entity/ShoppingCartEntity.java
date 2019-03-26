@@ -11,7 +11,7 @@ import java.util.List;
 public class ShoppingCartEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "cart_id")
     private Long cartId;
     @Column(name = "cart_total")

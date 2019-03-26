@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "cart_item")
 public class CartItemEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "item_id")
     private Long itemId;
     @Column(name = "product_id")
@@ -17,7 +17,7 @@ public class CartItemEntity {
     @Column(name = "product_name")
     private String ProductName;
     @Column(name = "quantity")
-    private long quantity;
+    private int quantity;
     @Column(name = "item_price")
     private double itemPrice;
     @Column(name = "item_discount")
@@ -52,11 +52,11 @@ public class CartItemEntity {
         ProductName = productName;
     }
 
-    public long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

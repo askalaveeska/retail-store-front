@@ -21,7 +21,7 @@ public class CategoryMapper {
         categoryDTO.setCategoryId(categoryEntity.getCategoryId());
         categoryDTO.setDescription(categoryEntity.getDescription());
         categoryDTO.setName(categoryEntity.getName());
-        categoryDTO.setProducts(categoryEntity.getProducts().stream().map(productMapper::from).collect(Collectors.toList()));
+        //categoryDTO.setProducts(categoryEntity.getProducts().stream().map(productMapper::from).collect(Collectors.toList()));
         categoryDTO.setStoreDTO(storeMapper.from(categoryEntity.getStoreEntity()));
         return categoryDTO;
     }
@@ -31,7 +31,7 @@ public class CategoryMapper {
         categoryEntity.setCategoryId(categoryDTO.getCategoryId());
         categoryEntity.setDescription(categoryDTO.getDescription());
         categoryEntity.setName(categoryDTO.getName());
-        categoryEntity.setProducts(categoryDTO.getProducts().stream().map(productMapper::from).collect(Collectors.toList()));
+        //categoryEntity.setProducts(categoryDTO.getProducts().stream().map(productMapper::from).collect(Collectors.toList()));
         categoryEntity.setStoreEntity(storeMapper.from(categoryDTO.getStoreDTO()));
         return categoryEntity;
     }

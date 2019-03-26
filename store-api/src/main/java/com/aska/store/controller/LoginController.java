@@ -19,14 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.util.ListUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by askalaveeska on 26/02/19.
@@ -59,32 +57,49 @@ public class LoginController {
     public ModelAndView authorize(@Valid final LoginDTO loginDTO, BindingResult bindingResult, HttpSession session, ModelAndView modelAndView){
 
         if(bindingResult.hasErrors()){
-            Set<Error> errors = StoreUtil.getErrorResponse(bindingResult);
+            List<Error> errors = StoreUtil.getErrorResponse(bindingResult);
             modelAndView.addObject(Constants.ERROR_OBJ,errors);
+            modelAndView. addObject(Constants.LOGIN_OBJ,new LoginDTO());
+            modelAndView.setViewName(RedirectPages.LANDING_PAGE);
+            return modelAndView;
         }
 
-        final UserDTO userDTO =  userService.getUserDetails(loginDTO.getEmail(),loginDTO.getPassword());
-        if(userDTO.isUser()){
+        final Optional<UserDTO> userDTO =  userService.getUserDetails(loginDTO.getEmail(),loginDTO.getPassword());
+        if(userDTO.isPresent() && userDTO.get().isUser()){
 
-            final ProductGroupDTO productGroup = productGroupService.findByStoreId(userDTO.getStoreDTO().getStoreId());
+            final ProductGroupDTO productGroup = productGroupService.findByStoreId(userDTO.get().getStoreDTO().getStoreId());
             final List<Long> productIds = productService.getAllProductIdsByProductGroupId(productGroup.getProductGroupId());
+
             final List<CategoryDTO> categories =  productService.getCategoriesByProductIds(productIds);
 
-            session.setAttribute(Constants.SESSION_USER,userDTO);
-
+            session.setAttribute(Constants.SESSION_USER,userDTO.get());
+            session.setAttribute(Constants.STORE_OBJ,userDTO.get().getStoreDTO());
+            session.setAttribute(Constants.CATEGORY_LIST_OBJ,categories);
             modelAndView.addObject(Constants.CATEGORY_LIST_OBJ,categories);
             modelAndView.addObject(Constants.USER_OBJ,userDTO);
-            modelAndView.setViewName(RedirectPages.CLP_PAGE);
+            if(categories.stream().count()==1){
+                final String redirectPage = "redirect:products.do/"+categories.get(0).getCategoryId()+"/"+0+"";
+                return new ModelAndView(redirectPage);
+            }
+            else {
+                modelAndView.setViewName(RedirectPages.CLP_PAGE);
+                return modelAndView;
+            }
             }
         else {
-            modelAndView.addObject(StoreUtil.getErrorObject("Invalid Username or Password!"));
+            modelAndView.addObject(Constants.ERROR,StoreUtil.getErrorObject("Invalid username or password!"));
             modelAndView.setViewName(RedirectPages.LANDING_PAGE);
+            modelAndView.addObject(Constants.LOGIN_OBJ,new LoginDTO());
+            return modelAndView;
             }
-        return modelAndView;
+
     }
     @GetMapping("logout.do")
-    public ResponseEntity logout(HttpSession httpSession){
+    public ModelAndView logout(HttpSession httpSession, ModelAndView modelAndView){
         httpSession.invalidate();
-        return ResponseEntity.ok().build();
+        modelAndView.addObject(Constants.MESSAGE,StoreUtil.getMessageResponse("message","Successfully logged out."));
+        modelAndView.addObject(Constants.LOGIN_OBJ,new LoginDTO());
+        modelAndView.setViewName(RedirectPages.LANDING_PAGE);
+        return modelAndView;
     }
 }

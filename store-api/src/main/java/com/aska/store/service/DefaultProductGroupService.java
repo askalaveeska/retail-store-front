@@ -1,6 +1,7 @@
 package com.aska.store.service;
 
 import com.aska.store.entity.ProductGroupEntity;
+import com.aska.store.entity.ProductGroupProductEntity;
 import com.aska.store.mapper.ProductGroupMapper;
 import com.aska.store.model.ProductGroupDTO;
 import com.aska.store.model.ProductGroupProductDTO;
@@ -38,7 +39,7 @@ public class DefaultProductGroupService implements ProductGroupService {
         return productGroupMapper.from(productGroupEntity);
     }
 
-    public List<Long> findProductGroupProducts(long productGroupId) {
+    public List<ProductGroupProductEntity> findProductGroupProducts(long productGroupId) {
         return productGroupProductRepository.findAllProductIdByProductGroupEntityProductGroupId(productGroupId);
     }
 }

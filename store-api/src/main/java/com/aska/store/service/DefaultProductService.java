@@ -8,15 +8,13 @@ import com.aska.store.mapper.CategoryMapper;
 import com.aska.store.mapper.ProductMapper;
 import com.aska.store.model.CategoryDTO;
 import com.aska.store.model.ProductDTO;
-import com.aska.store.repository.ProductGroupProductRepository;
-import com.aska.store.repository.ProductGroupRepository;
-import com.aska.store.repository.ProductRepository;
-import com.aska.store.repository.StoreRepository;
+import com.aska.store.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -32,6 +30,9 @@ public class DefaultProductService implements ProductService{
     private StoreRepository storeRepository;
     @Autowired
     private ProductGroupRepository productGroupRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
     @Autowired
     private ProductGroupProductRepository productGroupProductRepository;
 
@@ -89,12 +90,16 @@ public class DefaultProductService implements ProductService{
     }
 
     public List<Long> getAllProductIdsByProductGroupId(final long productGroupId) {
-        return productGroupProductRepository.findAllProductIdByProductGroupEntityProductGroupId(productGroupId);
+
+        final List<ProductGroupProductEntity> productGroupProductEntity =  productGroupProductRepository.findAllProductIdByProductGroupEntityProductGroupId(productGroupId);
+        return productGroupProductEntity.stream().map(pgp->
+            pgp.getProductGroupProductId()
+        ).collect(Collectors.toList());
     }
 
     @Override
     public List<CategoryDTO> getCategoriesByProductIds(List<Long> productIds) {
-        final List<CategoryEntity> categoryEntities =  productRepository.findAllCategoryEntityByProductId(productIds);
+        final List<CategoryEntity> categoryEntities = categoryRepository.findDistinctByProductsProductIdIn(productIds);
         return categoryEntities.stream().map(categoryMapper::from).collect(Collectors.toList());
     }
 }

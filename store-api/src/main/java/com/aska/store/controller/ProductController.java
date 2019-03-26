@@ -30,8 +30,8 @@ public class ProductController {
     @Autowired
     private ProductMapper productMapper;
 
-    @GetMapping("product.do/{productId}")
-    public ModelAndView getProduct(@PathVariable final long productId, ModelAndView modelAndView){
+    @GetMapping("product.do")
+    public ModelAndView getProduct(@RequestParam("productId") final long productId, ModelAndView modelAndView){
         final Optional<ProductEntity> productEntity = productRepository.findById(productId);
         if (productEntity.isPresent()){
             final ProductDTO productDTO = productMapper.from(productEntity.get());

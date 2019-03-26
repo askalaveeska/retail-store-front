@@ -5,6 +5,7 @@ package com.aska.store.common;
  */
 public class RedirectPages {
 
+    public static final String REGISTER_PAGE = "/register.html";
     public static final String LANDING_PAGE = "login.html";
     public static final String CLP_PAGE = "/clp.html";
     public static final String PLP_PAGE = "/plp.html";
@@ -13,5 +14,6 @@ public class RedirectPages {
     public static final String REVIEW_PAGE = "/review.html";
     public static final String CONFIRMATION_PAGE = "/confirmation.html";
     public static final String COMMON_ERROR_PAGE = "/error.html";
+
 
 }

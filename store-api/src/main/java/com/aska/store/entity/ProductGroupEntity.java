@@ -8,7 +8,7 @@ import java.util.List;
 public class ProductGroupEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "product_group_id")
     private Long productGroupId;
     @Column(name = "product_group_name")

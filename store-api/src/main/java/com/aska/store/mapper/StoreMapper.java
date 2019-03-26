@@ -24,18 +24,19 @@ public class StoreMapper {
         storeDTO.setProductGroupId(storeEntity.getProductGroupId());
         storeDTO.setProductGroupId(storeEntity.getProductGroupId());
         storeDTO.setAddressList(storeEntity.getAddressEntities().stream().map(addressMapper::from).collect(Collectors.toList()));
-        storeDTO.setCategories(storeEntity.getCategoryEntities().stream().map(categoryMapper::from).collect(Collectors.toList()));
+        //storeDTO.setCategories(storeEntity.getCategoryEntities().stream().map(categoryMapper::from).collect(Collectors.toList()));
         return storeDTO;
     }
     public StoreEntity from(final StoreDTO storeDTO){
         final StoreEntity storeEntity = new StoreEntity();
         storeEntity.setStoreId(storeDTO.getStoreId());
         storeEntity.setDescription(storeDTO.getDescription());
+        
         storeEntity.setImage(storeDTO.getImage());
         storeEntity.setStoreName(storeDTO.getStoreName());
         storeEntity.setProductGroupId(storeDTO.getProductGroupId());
         storeEntity.setAddressEntities(storeDTO.getAddressList().stream().map(addressMapper::from).collect(Collectors.toList()));
-        storeEntity.setCategoryEntities(storeDTO.getCategories().stream().map(categoryMapper::from).collect(Collectors.toList()));
+        //storeEntity.setCategoryEntities(storeDTO.getCategories().stream().map(categoryMapper::from).collect(Collectors.toList()));
         return storeEntity;
     }
 }

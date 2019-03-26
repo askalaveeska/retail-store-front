@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Category landing Page</title>
+    <title>Category Landing Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -27,104 +27,49 @@
     }
   </style>
 </head>
-<body>
+<body style="font-family:Comic san MS; font-size: 14">
 
-<div class="jumbotron">
-    <div class="container text-center">
-        <h1>Online Store</h1>
-        <p>Mission, Vission & Values</p>
-    </div>
+<div th:include="/header.html"></div>
 
 
-
-</div>
-
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Store</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="login.html">Home</a></li>
-                <li><a href="plp.html">Products</a></li>
-                <li><a href="#">Deals</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span>Account</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
+<div th:include="/navigation.html"></div>
 
 <div class="container">
-    <a href="#" class="btn btn-link" role="link">Home</a> <span class="glyphicon glyphicon-chevron-right"></span>
-    <a href="#" class="btn btn-link" role="link">PLP</a> <span class="glyphicon glyphicon-chevron-right"></span>
-    <a href="#" class="btn btn-link" role="link">PDP</a>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"><a href="#">Categories</a></li>
+        </ol>
+    </nav>
 </div>
-
-
-
 <div class="container">
-    <div style="">
-
-    </div>
-
     <div class="row">
-        <div class="col-md-4"><img src="../image/default_image.jpg" style="max-width: 350px;" align="center"/></div>
-        <form class="form-inline" action="cart.html">
-            <div class="col-md-8">
-                <h3>PREMIUM RICE 1 KG</h3>
-                <span class="badge badge-pill badge-light">RS. 150</span>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar</p>
-                <div class="form-group" >
-                    <label for="sel1">QTY:</label>
-                    <select class="form-control" id="sel1" placeholder="QTY" style="width: 50px;">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Beauty, Health, Grocery</div>
+                <div class="panel-body">
+                    <a class="btn btn-link">Beauty & Grooming</a><br>
+                    <a class="btn btn-link">Luxury Beauty</a><br>
+                    <a class="btn btn-link">Make-up</a><br>
+                    <a class="btn btn-link">Health & Personal Care</a><br>
+                    <a class="btn btn-link">Household Supplies</a><br>
+                    <a class="btn btn-link">Personal Care Appliances</a><br>
+                    <a class="btn btn-link">Diet & Nutrition</a><br>
+                    <a class="btn btn-link">Value Bazaar</a><br>
+                    <a class="btn btn-link">All Grocery & Gourmet Foods</a><br>
+                    <a class="btn btn-link">Coffee, Tea & Beverages</a><br>
+                    <a class="btn btn-link">Snack Foods</a><br>
                 </div>
-                <div>
-
-                </div>
-                <div style="height: 30px;"></div>
-                <button type="submit" class="btn btn-primary">ADD TP CART</button>
             </div>
-
-        </form>
-    </div>
-</div>
-<div style="height: 30px;"></div>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#">DESCRIPTION</a></li>
-                <li><a href="#">MANUFACTURAR</a></li>
-                <li><a href="#">REVIEW</a></li>
-            </ul>
         </div>
-    </div>
-</div>
 
-<footer class="container-fluid text-center">
-    <p>Online Store Copyright</p>
-    <form class="form-inline">Get Offers:
-        <input type="email" class="form-control" size="50" placeholder="Mobile Number">
-        <button type="button" class="btn btn-danger">GET</button>
-    </form>
-</footer>
+    </div>
+</div><br>
+
+<br><br>
+
+<div th:include="/footer.html"></div>
+
+
 </body>
 </html>
