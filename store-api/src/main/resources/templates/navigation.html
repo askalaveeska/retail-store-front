@@ -18,11 +18,11 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li th:each="category : ${session.categories}" th:unless="${category.name} == 'DEFAULT'"><a href="#"><span th:text="${category.name}"></span></a></li>
-                        <li><a href="#">See All </a></li>
+                        <li><a href="/allProducts.do">See All </a></li>
                     </ul>
                 </li>
                 <!--<li><a href="#">Deals</a></li>-->
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="/storeContact.do">Contact Us</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> <span thclass="badge">5</span></a></li>

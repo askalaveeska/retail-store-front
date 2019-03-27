@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Product list Page</title>
-    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -29,10 +29,10 @@
 </head>
 <body style="font-family:Comic san MS; font-size: 14">
 
-<div th:include="/header.html"></div>
+<div th:include="header.html"></div>
 
 
-<div th:include="/navigation.html"></div>
+<div th:include="navigation.html"></div>
 
 <div class="container">
     <nav aria-label="breadcrumb">
@@ -47,35 +47,35 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-4"><img src="../image/default_image.jpg" style="max-width: 350px;" align="center"/></div>
-        <form class="form-inline" th:action="@{/pushToCart.do}" th:object="${product}">
+        <div class="col-md-4"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive " style="width:100%" alt="Image"></div>
+        <form class="form-inline" th:action="@{/pushToCart.do}" th:object="${product}" th:method="post">
         <div class="col-md-8">
             <h3 th:text="${product.productName}">PREMIUM RICE 1 KG</h3>
 
-            <input type="hidden" th:field="*{product.productId}" th:value="${product.productId}">
-            <input type="hidden" th:field="*{product.productName}" th:value="${product.productName}">
-            <input type="hidden" th:field="*{product.supplierPrice}" th:value="${product.supplierPrice}">
-            <input type="hidden" th:field="*{product.description}" th:value="${product.description}">
-            <input type="hidden" th:field="*{product.maxRetailPrice}" th:value="${product.maxRetailPrice}">
-            <input type="hidden" th:field="*{product.discountPrice}" th:value="${product.discountPrice}">
+            <input type="hidden" th:field="${product.productId}" th:value="${product.productId}">
+            <input type="hidden" th:field="${product.productName}" th:value="${product.productName}">
+            <input type="hidden" th:field="${product.supplierPrice}" th:value="${product.supplierPrice}">
+            <input type="hidden" th:field="${product.description}" th:value="${product.description}">
+            <input type="hidden" th:field="${product.maxRetailPrice}" th:value="${product.maxRetailPrice}">
+            <input type="hidden" th:field="${product.discountPrice}" th:value="${product.discountPrice}">
 
             <span class="badge badge-pill badge-light" th:text="${'Rs. '+product.supplierPrice}">RS. 150</span>
             <p th:text="${product.description}">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar</p>
             <div class="form-group" >
                 <label for="quantity">QTY:</label>
-                 <select class="form-control"  th:field="*{product.quantity}" id="quantity" style="width: 50px;">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                     <option>5</option>
+                 <select class="form-control"  th:field="${product.quantity}" id="quantity" style="width: 50px;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                     <option value="5">5</option>
                 </select>
             </div>
             <div>
 
             </div>
             <div style="height: 30px;"></div>
-            <button type="submit" class="btn btn-primary">ADD TO CART</button>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" value="ADD TO CART"/>
         </div>
 
         </form>
@@ -84,8 +84,8 @@
 <div style="height: 30px;"></div>
 
 
-<div th:include="/pdp-tab.html"></div>
+<div th:include="pdp-tab.html"></div>
 
-<div th:include="/footer.html"></div>
+<div th:include="footer.html"></div>
 </body>
 </html>

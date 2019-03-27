@@ -11,6 +11,7 @@ public class ShoppingCartDTO {
     private double cartTotal;
     private double discountAmount;
     private List<ShoppingCartItemDTO> cartItems;
+    private UserDTO userDTO;
 
     public Long getCartId() {
         return cartId;
@@ -42,5 +43,13 @@ public class ShoppingCartDTO {
 
     public void setCartItems(List<ShoppingCartItemDTO> cartItems) {
         this.cartItems = cartItems;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 }

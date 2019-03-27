@@ -15,12 +15,14 @@ import com.aska.store.repository.CartRepository;
 import com.aska.store.service.DefaultCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.internet.ContentType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -60,10 +62,10 @@ public class CartController {
 
     }
 
-    @PostMapping("pushToCart.do")
-    public ModelAndView addToCart(@Valid @RequestBody ProductDTO productDTO,
+    @PostMapping(value = "pushToCart.do")
+    public ModelAndView addToCart(@Valid ProductDTO productDTO,
                                     @SessionAttribute(name = Constants.SESSION_USER) UserDTO sessionUser,
-                                    @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart,
+                                    @SessionAttribute(name = Constants.SESSION_CART , required = false) ShoppingCartDTO sessionCart,
                                     ModelAndView modelAndView, HttpSession session){
         //need to check if it really updates session cart object
         sessionCart = defaultCartService.addToCart(sessionUser,productDTO,sessionCart);

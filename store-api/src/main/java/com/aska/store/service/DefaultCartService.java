@@ -78,6 +78,7 @@ public class DefaultCartService {
 
         else {
             final ShoppingCartDTO shoppingCartDTO =  createNewCart(productDTO);
+            shoppingCartDTO.setUserDTO(userDTO);
             cartRepository.save(shoppingCartMapper.from(shoppingCartDTO));
             return shoppingCartDTO;
         }

@@ -30,6 +30,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
     boolean existsByProductName(final String productName);
 
+    List<ProductEntity> findAllByProductId(List<Long> productId, Pageable pageable);
+
     //List<CategoryEntity> findAllByCategoryEntityProductId(final List<Long> productId);
 
 }

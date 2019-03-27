@@ -1,14 +1,19 @@
 package com.aska.store.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 /**
  * Created by askalaveeska on 27/02/19.
  */
 public class ProductDTO {
 
+
     private long productId;
     private boolean isActive;
     private String productName;
     private String description;
+    @Min(1)
     private int quantity;
     private double supplierPrice;
     private double maxRetailPrice;
