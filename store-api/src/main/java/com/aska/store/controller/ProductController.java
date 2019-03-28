@@ -33,6 +33,7 @@ public class ProductController {
         final ProductDTO product = productService.findByProductId(productId);
         if (Objects.nonNull(product)){
             modelAndView.addObject(Constants.PRODUCT_OBJ,product);
+            modelAndView.addObject(Constants.CATEGORY_OBJ,product.getCategoryDTO());
             modelAndView.setViewName(RedirectPages.PDP_PAGE);
         }
         else {

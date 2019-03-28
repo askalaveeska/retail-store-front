@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -66,7 +67,17 @@ public class DefaultProductService implements ProductService{
 
     @Override
     public ProductDTO findByProductId(long productId) {
-        return productMapper.from(productRepository.findByProductId(productId));
+        final Optional<ProductEntity> productEntity = productRepository.findById(productId);
+        if (productEntity.isPresent()){
+            final Optional<CategoryEntity> categoryEntity = categoryRepository.findById(productEntity.get().getCategoryId());
+            final ProductDTO productDTO = productMapper.from(productEntity.get());
+            if (categoryEntity.isPresent()){
+                final CategoryDTO categoryDTO = categoryMapper.from(categoryEntity.get());
+                productDTO.setCategoryDTO(categoryDTO);
+            }
+            return productDTO;
+        }
+        return null;
     }
 
     @Override

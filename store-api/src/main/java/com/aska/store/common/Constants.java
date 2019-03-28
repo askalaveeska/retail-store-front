@@ -8,6 +8,7 @@ public class Constants {
     public static final String SESSION_USER = "user";
     public static final String SESSION_CART = "sessionCartObj";
     public static final String STORE_OBJ = "store";
+    public static final String CATEGORY_OBJ = "category";
     public static final String SESSION_CATEGORY = "sessionCategoryObj";
     public static final String USER_OBJ = "user";
     public static final String LOGIN_OBJ = "login";

@@ -38,7 +38,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/category.do">Home</a></li>
-            <li class="breadcrumb-item active"><a th:href="${ '/products.do/'+ product.categoryDTO.categoryId +'/0'}"><span th:text="${product.categoryDTO.name}"></span></a></li>
+            <li class="breadcrumb-item active"><a th:href="${ '/products.do/'+ category.categoryId +'/0'}"><span th:text="${category.name}"></span></a></li>
         </ol>
     </nav>
 </div>
