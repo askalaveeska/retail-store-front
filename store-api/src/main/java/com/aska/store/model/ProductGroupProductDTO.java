@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 public class ProductGroupProductDTO {
 
     private Long  productGroupProductId;
+    private Long  productGroupId;
     private Long productId;
 
     public Long getProductGroupProductId() {
@@ -22,5 +23,13 @@ public class ProductGroupProductDTO {
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public Long getProductGroupId() {
+        return productGroupId;
+    }
+
+    public void setProductGroupId(Long productGroupId) {
+        this.productGroupId = productGroupId;
     }
 }

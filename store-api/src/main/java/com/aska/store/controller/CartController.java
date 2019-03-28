@@ -68,9 +68,9 @@ public class CartController {
                                     @SessionAttribute(name = Constants.SESSION_CART , required = false) ShoppingCartDTO sessionCart,
                                     ModelAndView modelAndView, HttpSession session){
         //need to check if it really updates session cart object
-        sessionCart = defaultCartService.addToCart(sessionUser,productDTO,sessionCart);
-        session.setAttribute(Constants.SESSION_CART,sessionCart);
-        modelAndView.addObject(Constants.CART_OBJ,sessionCart);
+        final ShoppingCartDTO shoppingCartDTO  = defaultCartService.addToCart(sessionUser,productDTO,sessionCart);
+        session.setAttribute(Constants.SESSION_CART,shoppingCartDTO);
+        modelAndView.addObject(Constants.CART_OBJ,shoppingCartDTO);
         modelAndView.setViewName(RedirectPages.CART_PAGE);
         return modelAndView;
     }
@@ -78,9 +78,9 @@ public class CartController {
     @DeleteMapping("removeItem.do/{cartItemId}")
     public ModelAndView removeFromCart(@PathVariable("cartItemId") final long cartItemId, @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart,
                                          HttpSession session,ModelAndView modelAndView){
-        if (Objects.nonNull(sessionCart)){
-            defaultCartService.removeItemFromCart(sessionCart,cartItemId);
-        }
+        final ShoppingCartDTO shoppingCartDTO  = defaultCartService.removeItemFromCart(sessionCart,cartItemId);
+        modelAndView.addObject(Constants.CART_OBJ,shoppingCartDTO);
+        session.setAttribute(Constants.SESSION_CART,shoppingCartDTO);
         modelAndView.setViewName(RedirectPages.CART_PAGE);
         return modelAndView;
 
@@ -88,8 +88,10 @@ public class CartController {
 
     @PostMapping("updateQuantity.do/{cartItemId}/{quantity}")
     public ModelAndView updateQuantity(@PathVariable("cartItemId") final long cartItemId, @PathVariable("quantity") final int quantity,
-                                         @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart, ModelAndView modelAndView){
+                                         @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart, ModelAndView modelAndView,HttpSession session){
         final ShoppingCartDTO shoppingCartDTO = defaultCartService.updateItemQuantity(sessionCart,cartItemId,quantity);
+        modelAndView.addObject(Constants.CART_OBJ,shoppingCartDTO);
+        session.setAttribute(Constants.SESSION_CART,shoppingCartDTO);
         modelAndView.setViewName(RedirectPages.CART_PAGE);
         return modelAndView;
     }

@@ -1,7 +1,9 @@
 package com.aska.store.service;
 
 import com.aska.store.entity.CartItemEntity;
+import com.aska.store.entity.ProductEntity;
 import com.aska.store.entity.ShoppingCartEntity;
+import com.aska.store.mapper.ProductMapper;
 import com.aska.store.mapper.ShoppingCartItemMapper;
 import com.aska.store.mapper.ShoppingCartMapper;
 import com.aska.store.model.ProductDTO;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultCartService {
@@ -26,6 +29,9 @@ public class DefaultCartService {
     private CartItemRepository cartItemRepository;
 
     @Autowired
+    private ProductMapper productMapper;
+
+    @Autowired
     private ShoppingCartMapper shoppingCartMapper;
 
     @Autowired
@@ -35,110 +41,111 @@ public class DefaultCartService {
         if (Objects.nonNull(sessionCart)){
             return sessionCart;
         }
-        final ShoppingCartEntity shoppingCartEntity = cartRepository.findByUserUserId(sessionUser.getUserId());
-        return shoppingCartMapper.from(shoppingCartEntity);
+        final ShoppingCartEntity shoppingCartEntity = cartRepository.findByUserId(sessionUser.getUserId());
+        final List<ShoppingCartItemDTO> shoppingCartItems  = shoppingCartEntity.getCartItems().stream().map(shoppingCartItemMapper::from).collect(Collectors.toList());
+        final ShoppingCartDTO shoppingCartDTO =  shoppingCartMapper.from(shoppingCartEntity);
+        shoppingCartDTO.setCartItems(shoppingCartItems);
+        return shoppingCartDTO;
     }
 
     public ShoppingCartDTO addToCart(final UserDTO userDTO, final ProductDTO productDTO, final ShoppingCartDTO sessionCart){
+        final ProductEntity productEntity = productMapper.from(productDTO);
         final ShoppingCartEntity shoppingCartEntity;
         if (Objects.nonNull(sessionCart)){
             shoppingCartEntity = shoppingCartMapper.from(sessionCart);
         }
         else{
-            shoppingCartEntity = cartRepository.findByUserUserId(userDTO.getUserId());
+            shoppingCartEntity = cartRepository.findByUserId(userDTO.getUserId());
         }
         if (Objects.nonNull(shoppingCartEntity)){
-            final CartItemEntity cartItemEntity =  cartItemRepository.findByProductId(productDTO.getProductId());
+            final CartItemEntity cartItemEntity =  cartItemRepository.findByProductId(productEntity.getProductId());
             if (Objects.nonNull(cartItemEntity)){
                 //can check max allowed quantity
                 final ShoppingCartEntity cartEntity = cartItemEntity.getShoppingCart();
-
-                final double cartTotal = cartEntity.getCartTotal() + productDTO.getSupplierPrice();
-
+                final double cartTotal = cartEntity.getCartTotal() + productEntity.getSupplierPrice();
                 //need to calculate discount amount here
                 cartEntity.setCartTotal(cartTotal);
 
-                cartItemEntity.setShoppingCart(cartEntity);
-
-                final int quantity = cartItemEntity.getQuantity()+productDTO.getQuantity();
-                cartItemEntity.setQuantity(quantity);
-                cartItemEntity.setItemTotalPrice(cartItemEntity.getItemTotalPrice()+productDTO.getSupplierPrice());
+                cartItemEntity.setQuantity(cartItemEntity.getQuantity()+productEntity.getQuantity());
+                cartItemEntity.setItemTotalPrice(cartItemEntity.getItemTotalPrice()+productEntity.getSupplierPrice());
                 cartItemRepository.save(cartItemEntity);
-                return shoppingCartMapper.from(cartEntity);
+                return shoppingCartMapper.from(cartRepository.save(cartEntity));
             }
             else {
-                final CartItemEntity cartItem = shoppingCartItemMapper.from(getLineItem(productDTO));
+                final CartItemEntity cartItem = getLineItem(productEntity);
+                cartItem.setCartId(shoppingCartEntity.getCartId());
                 //needs discount calculation here
                 shoppingCartEntity.setCartTotal(shoppingCartEntity.getCartTotal() + cartItem.getItemTotalPrice());
-
+                final ShoppingCartEntity cartTemp = cartRepository.save(shoppingCartEntity);
                 cartItemRepository.save(cartItem);
-                return shoppingCartMapper.from(shoppingCartEntity);
+                List<CartItemEntity>  itemEntities = new ArrayList<>();
+                itemEntities.add(cartItem);
+                cartTemp.setCartItems(itemEntities);
+                return shoppingCartMapper.from(cartTemp);
             }
         }
 
         else {
-            final ShoppingCartDTO shoppingCartDTO =  createNewCart(productDTO);
-            shoppingCartDTO.setUserDTO(userDTO);
-            cartRepository.save(shoppingCartMapper.from(shoppingCartDTO));
-            return shoppingCartDTO;
+            final CartItemEntity cartItemEntity = getLineItem(productEntity);
+            final ShoppingCartEntity cartEntity =  createNewCart(cartItemEntity,userDTO);
+            final ShoppingCartEntity cartTemp = cartRepository.save(cartEntity);
+            cartItemEntity.setCartId(cartTemp.getCartId());
+            cartItemRepository.save(cartItemEntity);
+            List<CartItemEntity> cartItemEntities = new ArrayList<>();
+            cartItemEntities.add(cartItemEntity);
+            cartEntity.setCartItems(cartItemEntities);
+            return shoppingCartMapper.from(cartTemp);
         }
 
     }
 
-    private ShoppingCartItemDTO getLineItem(final ProductDTO productDTO){
-        final ShoppingCartItemDTO shoppingCartItemDTO = new ShoppingCartItemDTO();
-        shoppingCartItemDTO.setProductName(productDTO.getProductName());
-        shoppingCartItemDTO.setQuantity(productDTO.getQuantity());
-        shoppingCartItemDTO.setLineItemPrice(productDTO.getSupplierPrice());
-        shoppingCartItemDTO.setLineItemDiscount(0);
-        final double lineItemTotal = productDTO.getQuantity() * productDTO.getSupplierPrice();
-        shoppingCartItemDTO.setLineItemTotal(lineItemTotal);
-        return shoppingCartItemDTO;
+    private CartItemEntity getLineItem(final ProductEntity productEntity){
+        final CartItemEntity cartItemEntity = new CartItemEntity();
+        cartItemEntity.setProductName(productEntity.getProductName());
+        cartItemEntity.setQuantity(productEntity.getQuantity());
+        cartItemEntity.setItemPrice(productEntity.getSupplierPrice());
+        cartItemEntity.setItemDiscount(0);
+        final double lineItemTotal = productEntity.getQuantity() * productEntity.getSupplierPrice();
+        cartItemEntity.setItemTotalPrice(lineItemTotal);
+        return cartItemEntity;
     }
-    private ShoppingCartDTO createNewCart(final ProductDTO productDTO){
-        final ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
 
-        final ShoppingCartItemDTO shoppingCartItemDTO = new ShoppingCartItemDTO();
-        shoppingCartItemDTO.setProductName(productDTO.getProductName());
-        shoppingCartItemDTO.setQuantity(productDTO.getQuantity());
-        shoppingCartItemDTO.setLineItemPrice(productDTO.getSupplierPrice());
-        shoppingCartItemDTO.setLineItemDiscount(0);
-        final double lineItemTotal = productDTO.getQuantity() * productDTO.getSupplierPrice();
-        shoppingCartItemDTO.setLineItemTotal(lineItemTotal);
-
+    private ShoppingCartEntity createNewCart(CartItemEntity cartItemEntity, final UserDTO userDTO){
+        ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity();
+        shoppingCartEntity.setUserId(userDTO.getUserId());
+        shoppingCartEntity.setCartTotal(cartItemEntity.getItemTotalPrice());
         //here discount needs to be set based on requirement
-        shoppingCartDTO.setDiscountAmount(0);
-
-        shoppingCartDTO.setCartTotal(shoppingCartItemDTO.getLineItemTotal());
-
-        List<ShoppingCartItemDTO> cartItems  =  new ArrayList<>();
-        cartItems.add(shoppingCartItemDTO);
-        shoppingCartDTO.setCartItems(cartItems);
-        return shoppingCartDTO;
+        shoppingCartEntity.setDiscountAmount(0);
+        return shoppingCartEntity;
     }
 
     public  ShoppingCartDTO removeItemFromCart(final ShoppingCartDTO sessionCart, final Long cartItemId){
+        cartItemRepository.deleteById(cartItemId);
         List<ShoppingCartItemDTO> shoppingCartItems =  sessionCart.getCartItems();
         Optional<ShoppingCartItemDTO> shoppingCartItemDTO = shoppingCartItems.stream().filter(sci->sci.getItemId() == cartItemId).findFirst();
         sessionCart.setCartTotal(sessionCart.getCartTotal()-shoppingCartItemDTO.get().getLineItemTotal());
         shoppingCartItems.removeIf(sci->sci.getItemId() == cartItemId);
         sessionCart.setCartItems(shoppingCartItems);
-        cartRepository.save(shoppingCartMapper.from(sessionCart));
+        final ShoppingCartEntity shoppingCartEntity = shoppingCartMapper.from(sessionCart);
+        cartRepository.save(shoppingCartEntity);
         return sessionCart;
     }
 
     public  ShoppingCartDTO updateItemQuantity(final ShoppingCartDTO sessionCart, final Long cartItemId, final int quantity){
-        List<ShoppingCartItemDTO> shoppingCartItems =  sessionCart.getCartItems();
-        Optional<ShoppingCartItemDTO> shoppingCartItemDTO = shoppingCartItems.stream().filter(sci->sci.getItemId() == cartItemId).findFirst();
-        shoppingCartItemDTO.get().setQuantity(quantity);
-        shoppingCartItemDTO.get().setLineItemTotal(shoppingCartItemDTO.get().getLineItemPrice() * shoppingCartItemDTO.get().getQuantity());
+
+        final ShoppingCartEntity shoppingCartEntity = shoppingCartMapper.from(sessionCart);
+        List<CartItemEntity> shoppingCartItems =  shoppingCartEntity.getCartItems();
+        Optional<CartItemEntity> cartItemEntity = shoppingCartItems.stream().filter(sci->sci.getItemId() == cartItemId).findFirst();
+        cartItemEntity.get().setQuantity(quantity);
+        cartItemEntity.get().setItemTotalPrice(cartItemEntity.get().getItemPrice() * cartItemEntity.get().getQuantity());
         shoppingCartItems.removeIf(sci->sci.getItemId() == cartItemId);
-        shoppingCartItems.add(shoppingCartItemDTO.get());
-        sessionCart.setCartTotal(shoppingCartItems.stream().mapToDouble(sci->sci.getLineItemTotal()).sum());
+        shoppingCartItems.add(cartItemEntity.get());
+        shoppingCartEntity.setCartTotal(shoppingCartItems.stream().mapToDouble(sci->sci.getItemTotalPrice()).sum());
         shoppingCartItems.removeIf(sci->sci.getItemId() == cartItemId);
 
-        sessionCart.setCartItems(shoppingCartItems);
-        cartRepository.save(shoppingCartMapper.from(sessionCart));
+        cartItemRepository.saveAll(shoppingCartItems);
+        shoppingCartEntity.setCartItems(shoppingCartItems);
+        cartRepository.save(shoppingCartEntity);
         return sessionCart;
     }
 

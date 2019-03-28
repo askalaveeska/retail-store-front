@@ -11,6 +11,8 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "category_id")
     private Long categoryId;
+    @Column(name = "store_id")
+    private long storeId;
     @Column(name = "category_name")
     private String name;
     @Column(name = "category_description")
@@ -18,7 +20,7 @@ public class CategoryEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoryEntity")
     private List<ProductEntity> products;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id",insertable = false, updatable = false)
     private StoreEntity storeEntity;
 
     public Long getCategoryId() {
@@ -59,5 +61,13 @@ public class CategoryEntity {
 
     public void setStoreEntity(StoreEntity storeEntity) {
         this.storeEntity = storeEntity;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
     }
 }

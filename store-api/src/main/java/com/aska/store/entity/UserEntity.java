@@ -13,6 +13,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
     private Long userId;
+    @Column(name = "store_id")
+    private Long storeId;
     @Column(name = "firstname")
     private String firstName;
     @Column(name = "lastname")
@@ -28,8 +30,8 @@ public class UserEntity {
     @Column(name = "is_admin")
     private boolean isAdmin;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "store_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id",  insertable = false, updatable = false)
     private StoreEntity storeEntity;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
@@ -113,5 +115,13 @@ public class UserEntity {
 
     public void setStoreEntity(StoreEntity storeEntity) {
         this.storeEntity = storeEntity;
+    }
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 }

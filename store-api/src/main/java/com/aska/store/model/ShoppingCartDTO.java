@@ -8,6 +8,7 @@ import java.util.List;
 public class ShoppingCartDTO {
 
     private Long cartId;
+    private Long userId;
     private double cartTotal;
     private double discountAmount;
     private List<ShoppingCartItemDTO> cartItems;
@@ -51,5 +52,13 @@ public class ShoppingCartDTO {
 
     public void setUserDTO(UserDTO userDTO) {
         this.userDTO = userDTO;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

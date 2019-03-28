@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderLineDTO {
     private Long orderLineId;
+    private Long orderId;
     private Long productId;
     private String productName;
     private double price;
@@ -12,6 +13,14 @@ public class OrderLineDTO {
 
     public Long getOrderLineId() {
         return orderLineId;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public void setOrderLineId(Long orderLineId) {

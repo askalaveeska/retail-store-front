@@ -14,6 +14,8 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "order_id")
     private long orderId;
+    @Column(name = "user_id")
+    private long userId;
     @Column(name = "order_date")
     private Date orderDate;
     @Column(name = "last_updated_date")
@@ -38,15 +40,18 @@ public class OrderEntity {
     private String country;
     @Column(name = "postal_code")
     private long pinCode;
-    @Column(name = "order_status")
-    private String orderStatus;
+    @Column(name = "status_id")
+    private long orderStatus;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", insertable = false, updatable = false)
+    private OrderStatusEntity orderStatusEntity;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
     private List<OrderLineEntity> orderLines;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private UserEntity userEntity;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
 
     public long getOrderId() {
         return orderId;
@@ -168,11 +173,27 @@ public class OrderEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getOrderStatus() {
+    public long getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(long orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public OrderStatusEntity getOrderStatusEntity() {
+        return orderStatusEntity;
+    }
+
+    public void setOrderStatusEntity(OrderStatusEntity orderStatusEntity) {
+        this.orderStatusEntity = orderStatusEntity;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }

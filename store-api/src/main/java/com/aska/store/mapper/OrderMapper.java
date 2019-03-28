@@ -15,10 +15,12 @@ public class OrderMapper {
     public OrderDTO from(final OrderEntity orderEntity){
         final OrderDTO orderDTO = new OrderDTO();
         orderDTO.setOrderId(orderEntity.getOrderId());
+        orderDTO.setUserId(orderEntity.getUserId());
         orderDTO.setOrderDate(orderEntity.getOrderDate());
         orderDTO.setLastUpdatedDate(orderEntity.getLastUpdatedDate());
         orderDTO.setOrderEmail(orderEntity.getOrderEmail());
         orderDTO.setOrderStatus(orderEntity.getOrderStatus());
+        orderDTO.setOrderTotal(orderEntity.getOrderTotal());
 
         //loading order address
         orderDTO.setAddressLine1(orderEntity.getAddressLine1());
@@ -30,18 +32,18 @@ public class OrderMapper {
         orderDTO.setPinCode(orderEntity.getPinCode());
         orderDTO.setCountry(orderEntity.getCountry());
 
-        orderDTO.setOrderTotal(orderEntity.getOrderTotal());
-        orderDTO.setOrderLines(orderEntity.getOrderLines().stream().map(orderLineMapper::from).collect(Collectors.toList()));
         return orderDTO;
     }
 
     public OrderEntity from(final OrderDTO orderDTO){
         final OrderEntity orderEntity = new OrderEntity();
         orderEntity.setOrderId(orderDTO.getOrderId());
+        orderEntity.setUserId(orderDTO.getUserId());
         orderEntity.setOrderDate(orderDTO.getOrderDate());
         orderEntity.setLastUpdatedDate(orderDTO.getLastUpdatedDate());
         orderEntity.setOrderEmail(orderDTO.getOrderEmail());
         orderEntity.setOrderStatus(orderDTO.getOrderStatus());
+        orderEntity.setOrderTotal(orderDTO.getOrderTotal());
         //loading order address
         orderEntity.setAddressLine1(orderDTO.getAddressLine1());
         orderEntity.setAddressLine2(orderDTO.getAddressLine2());
@@ -52,8 +54,6 @@ public class OrderMapper {
         orderEntity.setPinCode(orderDTO.getPinCode());
         orderEntity.setCountry(orderDTO.getCountry());
 
-        orderEntity.setOrderTotal(orderDTO.getOrderTotal());
-        orderEntity.setOrderLines(orderDTO.getOrderLines().stream().map(orderLineMapper::from).collect(Collectors.toList()));
         return orderEntity;
     }
 }

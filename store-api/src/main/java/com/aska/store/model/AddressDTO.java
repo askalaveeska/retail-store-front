@@ -3,6 +3,8 @@ package com.aska.store.model;
 public class AddressDTO {
 
     private long addressId;
+    private long userId;
+    private long storeId;
     private String addressLine1;
     private String addressLine2;
     private String addressLine3;
@@ -73,5 +75,21 @@ public class AddressDTO {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
     }
 }

@@ -22,7 +22,7 @@ public class Constants {
     public static final String ORDER_EMAIL= "orderEmail";
     public static final String MESSAGE = "message";
 
-    public static final String ORDER_PLACED= "order placed";
+    public static final int ORDER_PLACED= 0;
 
 
 

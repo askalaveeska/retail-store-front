@@ -16,22 +16,18 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
-    Long countByIsActiveTrueAndCategoryEntityCategoryId(final long categoryId);
+    Long countByIsActiveTrueAndCategoryId(final long categoryId);
 
     ProductEntity findByProductIdAndIsActiveTrue(final long productId);
 
     ProductEntity findByProductId(final long productId);
 
-    List<ProductEntity> findAllByCategoryEntityCategoryId(final long categoryId, Pageable pageable);
+    List<ProductEntity> findAllByCategoryId(final long categoryId, final Pageable pageable);
 
-    List<ProductEntity> findAllByProductId(List<Long> productId);
+    List<ProductEntity> findAllByProductId(final List<Long> productId, final Pageable pageable);
 
     List<ProductEntity> findAllByBrandEntityId(final long brandId);
 
     boolean existsByProductName(final String productName);
-
-    List<ProductEntity> findAllByProductId(List<Long> productId, Pageable pageable);
-
-    //List<CategoryEntity> findAllByCategoryEntityProductId(final List<Long> productId);
 
 }

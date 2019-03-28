@@ -13,6 +13,10 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "product_id")
     private long productId;
+    @Column(name = "category_id")
+    private long categoryId;
+    @Column(name = "brand_id")
+    private long brandId;
     @Column(name = "is_active")
     private boolean isActive;
     @Column(name = "product_name")
@@ -28,10 +32,10 @@ public class ProductEntity {
     @Column(name = "discount_price")
     private double discountPrice;
     @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity categoryEntity;
     @ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
-    @JoinColumn(name = "brand_id")
+    @JoinColumn(name = "brand_id", insertable = false, updatable = false)
     private BrandEntity brandEntity;
 
     public long getProductId() {
@@ -112,5 +116,21 @@ public class ProductEntity {
 
     public void setBrandEntity(BrandEntity brandEntity) {
         this.brandEntity = brandEntity;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(long brandId) {
+        this.brandId = brandId;
     }
 }

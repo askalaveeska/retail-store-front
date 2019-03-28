@@ -26,16 +26,13 @@ import java.util.stream.Collectors;
 @Controller
 public class ProductController {
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ProductMapper productMapper;
+    private ProductService productService;
 
     @GetMapping("product.do")
     public ModelAndView getProduct(@RequestParam("productId") final long productId, ModelAndView modelAndView){
-        final Optional<ProductEntity> productEntity = productRepository.findById(productId);
-        if (productEntity.isPresent()){
-            final ProductDTO productDTO = productMapper.from(productEntity.get());
-            modelAndView.addObject(Constants.PRODUCT_OBJ,productDTO);
+        final ProductDTO product = productService.findByProductId(productId);
+        if (Objects.nonNull(product)){
+            modelAndView.addObject(Constants.PRODUCT_OBJ,product);
             modelAndView.setViewName(RedirectPages.PDP_PAGE);
         }
         else {

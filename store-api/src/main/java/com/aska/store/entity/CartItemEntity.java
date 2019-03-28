@@ -12,6 +12,8 @@ public class CartItemEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "item_id")
     private Long itemId;
+    @Column(name = "cart_id")
+    private long cartId;
     @Column(name = "product_id")
     private Long productId;
     @Column(name = "product_name")
@@ -25,7 +27,7 @@ public class CartItemEntity {
     @Column(name = "item_total_price")
     private double itemTotalPrice;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "cart_id", insertable = false, updatable = false)
     private ShoppingCartEntity shoppingCart;
 
     public Long getItemId() {
@@ -92,4 +94,11 @@ public class CartItemEntity {
         this.shoppingCart = shoppingCart;
     }
 
+    public long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(long cartId) {
+        this.cartId = cartId;
+    }
 }

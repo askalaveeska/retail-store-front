@@ -22,6 +22,7 @@ public class DefaultOrderService implements OrderService {
         orderDTO.setOrderDate(new Date());
         final OrderEntity orderEntity = orderMapper.from(orderDTO);
         final OrderEntity placedOrderEntity = orderRepository.save(orderEntity);
+
         return orderMapper.from(placedOrderEntity);
     }
 }

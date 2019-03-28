@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CartRepository  extends CrudRepository<ShoppingCartEntity,Long> {
-    ShoppingCartEntity findByUserUserId(final long userId);
+    ShoppingCartEntity findByUserId(final long userId);
 }

@@ -11,6 +11,8 @@ public class ProductGroupEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "product_group_id")
     private Long productGroupId;
+    @Column(name = "store_id")
+    private Long storeId;
     @Column(name = "product_group_name")
     private String productGroupName;
     @Column(name = "is_active")
@@ -18,7 +20,7 @@ public class ProductGroupEntity {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "productGroupEntity")
     private List<ProductGroupProductEntity> products;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id",  insertable = false, updatable = false)
     private StoreEntity storeEntity;
 
     public Long getProductGroupId() {
@@ -60,5 +62,13 @@ public class ProductGroupEntity {
 
     public void setStoreEntity(StoreEntity storeEntity) {
         this.storeEntity = storeEntity;
+    }
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 }

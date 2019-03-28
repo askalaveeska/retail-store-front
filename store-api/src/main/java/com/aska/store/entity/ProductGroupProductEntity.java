@@ -9,10 +9,12 @@ public class ProductGroupProductEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "product_group_product_id")
     private Long  productGroupProductId;
+    @Column(name = "product_group_id")
+    private Long  productGroupId;
     @Column(name = "product_id")
     private Long productId;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_group_id")
+    @JoinColumn(name = "product_group_id", insertable = false, updatable = false)
     private ProductGroupEntity productGroupEntity;
 
     public Long getProductGroupProductId() {
@@ -37,6 +39,14 @@ public class ProductGroupProductEntity {
 
     public void setProductGroupEntity(ProductGroupEntity productGroupEntity) {
         this.productGroupEntity = productGroupEntity;
+    }
+
+    public Long getProductGroupId() {
+        return productGroupId;
+    }
+
+    public void setProductGroupId(Long productGroupId) {
+        this.productGroupId = productGroupId;
     }
 }
 

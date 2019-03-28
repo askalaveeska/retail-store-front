@@ -3,6 +3,7 @@ package com.aska.store.model;
 public class ShoppingCartItemDTO {
 
     private Long itemId;
+    private Long cartId;
     private Long productId;
     private String ProductName;
     private int quantity;
@@ -64,5 +65,13 @@ public class ShoppingCartItemDTO {
 
     public void setLineItemTotal(double lineItemTotal) {
         LineItemTotal = lineItemTotal;
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 }

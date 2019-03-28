@@ -13,6 +13,10 @@ public class AddressEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "address_id")
     private long addressId;
+    @Column(name = "user_id")
+    private long userId;
+    @Column(name = "store_id")
+    private long storeId;
     @Column(name = "address_line1")
     private String addressLine1;
     @Column(name = "address_line2")
@@ -29,11 +33,11 @@ public class AddressEntity {
     private String country;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private UserEntity user;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id", insertable = false, updatable = false)
     private StoreEntity storeEntity;
 
     public long getAddressId() {
@@ -116,4 +120,19 @@ public class AddressEntity {
         this.storeEntity = storeEntity;
     }
 
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
+    }
 }

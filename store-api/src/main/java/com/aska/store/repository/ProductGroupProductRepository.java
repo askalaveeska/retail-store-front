@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ProductGroupProductRepository  extends JpaRepository<ProductGroupProductEntity,Long> {
 
-    List<ProductGroupProductEntity> findAllProductIdByProductGroupEntityProductGroupId(final long productGroupId);
+    List<ProductGroupProductEntity> findAllByProductGroupId(final long productGroupId);
 
 }

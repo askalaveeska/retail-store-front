@@ -10,6 +10,8 @@ public class OrderLineEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "order_line_id")
     private Long orderLineId;
+    @Column(name = "order_id")
+    private Long orderId;
     @Column(name = "product_id")
     private Long productId;
     @Column(name = "product_name")
@@ -19,7 +21,7 @@ public class OrderLineEntity {
     @Column(name = "quantity")
     private int quantity;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private OrderEntity order;
 
     public Long getOrderLineId() {
@@ -68,5 +70,13 @@ public class OrderLineEntity {
 
     public void setOrder(OrderEntity order) {
         this.order = order;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }

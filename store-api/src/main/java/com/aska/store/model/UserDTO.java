@@ -8,15 +8,10 @@ import java.util.List;
 public class UserDTO {
 
     private long userId;
-    @NotNull
-    @NotEmpty
+    private Long storeId;
     private String firstName;
-    @NotNull
-    @NotEmpty
     private String lastName;
     private String password;
-    @NotNull
-    @NotEmpty
     private String email;
     private Long phoneNumber;
     private boolean isUser;
@@ -26,6 +21,14 @@ public class UserDTO {
 
     public long getUserId() {
         return userId;
+    }
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public void setUserId(long userId) {

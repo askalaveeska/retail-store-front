@@ -10,8 +10,6 @@ public class StoreEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "store_id")
     private Long storeId;
-    @Column(name = "product_group_id")
-    private Long productGroupId;
     @Column(name = "store_name")
     private String storeName;
     @Column(name = "store_description")
@@ -73,14 +71,6 @@ public class StoreEntity {
 
     public void setUsers(List<UserEntity> users) {
         this.users = users;
-    }
-
-    public Long getProductGroupId() {
-        return productGroupId;
-    }
-
-    public void setProductGroupId(Long productGroupId) {
-        this.productGroupId = productGroupId;
     }
 
     public List<AddressEntity> getAddressEntities() {

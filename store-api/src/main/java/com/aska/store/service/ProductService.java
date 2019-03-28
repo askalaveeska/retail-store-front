@@ -4,6 +4,7 @@ import com.aska.store.entity.ProductEntity;
 import com.aska.store.model.CategoryDTO;
 import com.aska.store.model.ProductDTO;
 import com.aska.store.repository.ProductRepository;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Set;
@@ -22,9 +23,9 @@ public interface ProductService {
 
     ProductDTO findByProductId(final long productId);
 
-    List<ProductDTO> findAllByCategoryEntityCategoryId(final long categoryId);
+    List<ProductDTO> findAllByCategoryId(final long categoryId, final Pageable pageable);
 
-    List<ProductDTO> findAllByProductId(List<Long> productId);
+    List<ProductDTO> findAllByProductId(final List<Long> productId, final Pageable pageable);
 
     List<ProductDTO> findAllByBrandEntityId(final long brandId);
 
@@ -32,5 +33,5 @@ public interface ProductService {
 
     List<Long> getAllProductIdsByProductGroupId(final long productGroupId);
 
-    List<CategoryDTO> getCategoriesByProductIds(List<Long> productIds);
+    List<CategoryDTO> getDistinctCategoriesByProductIds(List<Long> productIds);
 }

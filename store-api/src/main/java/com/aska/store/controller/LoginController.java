@@ -5,10 +5,7 @@ import com.aska.store.common.RedirectPages;
 import com.aska.store.entity.StoreEntity;
 import com.aska.store.model.*;
 import com.aska.store.model.Error;
-import com.aska.store.service.CategoryService;
-import com.aska.store.service.ProductGroupService;
-import com.aska.store.service.ProductService;
-import com.aska.store.service.UserService;
+import com.aska.store.service.*;
 import com.aska.store.util.StoreUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by askalaveeska on 26/02/19.
@@ -37,6 +35,9 @@ public class LoginController {
 
     @Autowired
     private ProductGroupService productGroupService;
+
+    @Autowired
+    private ProductGroupProductService productGroupProductService;
 
     @Autowired
     private CategoryService categoryService;
@@ -67,10 +68,11 @@ public class LoginController {
         final Optional<UserDTO> userDTO =  userService.getUserDetails(loginDTO.getEmail(),loginDTO.getPassword());
         if(userDTO.isPresent() && userDTO.get().isUser()){
 
-            final ProductGroupDTO productGroup = productGroupService.findByStoreId(userDTO.get().getStoreDTO().getStoreId());
-            final List<Long> productIds = productService.getAllProductIdsByProductGroupId(productGroup.getProductGroupId());
+            final ProductGroupDTO productGroup = productGroupService.findByStoreId(userDTO.get().getStoreId());
 
-            final List<CategoryDTO> categories =  productService.getCategoriesByProductIds(productIds);
+            final List<ProductGroupProductDTO> productGroupProducts = productGroupProductService.findByProductGroupId(productGroup.getProductGroupId());
+            final List<Long> productIds = productGroupProducts.stream().map(pgp->pgp.getProductGroupId()).collect(Collectors.toList());
+            final List<CategoryDTO> categories =  productService.getDistinctCategoriesByProductIds(productIds);
 
             session.setAttribute(Constants.SESSION_USER,userDTO.get());
             session.setAttribute(Constants.STORE_OBJ,userDTO.get().getStoreDTO());

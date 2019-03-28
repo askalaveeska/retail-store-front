@@ -10,10 +10,11 @@ public class ProductDTO {
 
 
     private long productId;
+    private long categoryId;
+    private long brandId;
     private boolean isActive;
     private String productName;
     private String description;
-    @Min(1)
     private int quantity;
     private double supplierPrice;
     private double maxRetailPrice;
@@ -90,5 +91,21 @@ public class ProductDTO {
 
     public void setCategoryDTO(CategoryDTO categoryDTO) {
         this.categoryDTO = categoryDTO;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(long brandId) {
+        this.brandId = brandId;
     }
 }

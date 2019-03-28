@@ -29,7 +29,7 @@ public class DefaultProductGroupService implements ProductGroupService {
 
     @Override
     public ProductGroupDTO findByStoreId(long storeId) {
-        final ProductGroupEntity productGroupEntity =productGroupRepository.findByIsActiveTrueAndStoreEntityStoreId(storeId);
+        final ProductGroupEntity productGroupEntity =productGroupRepository.findByIsActiveTrueAndStoreId(storeId);
         return productGroupMapper.from(productGroupEntity);
     }
 
@@ -39,7 +39,4 @@ public class DefaultProductGroupService implements ProductGroupService {
         return productGroupMapper.from(productGroupEntity);
     }
 
-    public List<ProductGroupProductEntity> findProductGroupProducts(long productGroupId) {
-        return productGroupProductRepository.findAllProductIdByProductGroupEntityProductGroupId(productGroupId);
-    }
 }

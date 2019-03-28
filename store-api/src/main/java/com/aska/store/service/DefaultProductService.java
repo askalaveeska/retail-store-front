@@ -10,6 +10,7 @@ import com.aska.store.model.CategoryDTO;
 import com.aska.store.model.ProductDTO;
 import com.aska.store.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -69,14 +70,13 @@ public class DefaultProductService implements ProductService{
     }
 
     @Override
-    public List<ProductDTO> findAllByCategoryEntityCategoryId(long categoryId) {
-        //return productRepository.findAllByCategoryEntityCategoryId(categoryId).stream().map(productMapper::from).collect(Collectors.toList());
-        return null;
+    public List<ProductDTO> findAllByCategoryId(long categoryId, Pageable pageable) {
+        return productRepository.findAllByCategoryId(categoryId,pageable).stream().map(productMapper::from).collect(Collectors.toList());
     }
 
     @Override
-    public List<ProductDTO> findAllByProductId(List<Long> productId) {
-        return productRepository.findAllByProductId(productId).stream().map(productMapper::from).collect(Collectors.toList()) ;
+    public List<ProductDTO> findAllByProductId(List<Long> productId, final Pageable pageable) {
+        return productRepository.findAllByProductId(productId, pageable).stream().map(productMapper::from).collect(Collectors.toList()) ;
     }
 
     @Override
@@ -91,14 +91,14 @@ public class DefaultProductService implements ProductService{
 
     public List<Long> getAllProductIdsByProductGroupId(final long productGroupId) {
 
-        final List<ProductGroupProductEntity> productGroupProductEntity =  productGroupProductRepository.findAllProductIdByProductGroupEntityProductGroupId(productGroupId);
+        final List<ProductGroupProductEntity> productGroupProductEntity =  productGroupProductRepository.findAllByProductGroupId(productGroupId);
         return productGroupProductEntity.stream().map(pgp->
             pgp.getProductGroupProductId()
         ).collect(Collectors.toList());
     }
 
     @Override
-    public List<CategoryDTO> getCategoriesByProductIds(List<Long> productIds) {
+    public List<CategoryDTO> getDistinctCategoriesByProductIds(List<Long> productIds) {
         final List<CategoryEntity> categoryEntities = categoryRepository.findDistinctByProductsProductIdIn(productIds);
         return categoryEntities.stream().map(categoryMapper::from).collect(Collectors.toList());
     }

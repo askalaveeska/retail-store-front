@@ -8,6 +8,7 @@ import com.aska.store.model.CategoryDTO;
 import com.aska.store.model.ProductDTO;
 import com.aska.store.model.ProductGroupDTO;
 import com.aska.store.model.UserDTO;
+import com.aska.store.repository.CategoryRepository;
 import com.aska.store.repository.ProductRepository;
 import com.aska.store.service.ProductGroupService;
 import com.aska.store.service.ProductService;
@@ -39,6 +40,9 @@ public class ProductsController {
     private ProductRepository productRepository;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private ProductMapper productMapper;
 
     @Autowired
@@ -51,17 +55,16 @@ public class ProductsController {
     public ModelAndView get(@PathVariable("categoryId") long categoryId, @PathVariable("pageNumber") int pageNumber,
                             ModelAndView modelAndView){
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        final List<ProductEntity> productEntities = productRepository.findAllByCategoryEntityCategoryId(categoryId,pageable);
-        final long productCount = productRepository.countByIsActiveTrueAndCategoryEntityCategoryId(categoryId);
+        final List<ProductDTO> products = productService.findAllByCategoryId(categoryId,pageable);
+        final long productCount = productRepository.countByIsActiveTrueAndCategoryId(categoryId);
         final long nPages = productCount%pageSize==0?productCount/pageSize:(productCount/pageSize)+1;
-        final List<ProductDTO> products =  productEntities.stream().map(productMapper::from).collect(Collectors.toList());
         if(products.isEmpty()){
             modelAndView.setViewName(RedirectPages.COMMON_ERROR_PAGE);
         }
         else{
             modelAndView.addObject("currentPage",pageNumber);
             modelAndView.addObject("totalPages",nPages);
-            modelAndView.addObject("categoryName",products.get(0).getCategoryDTO().getName());
+            modelAndView.addObject("categoryName",categoryRepository.findById(products.get(0).getCategoryId()).get().getName());
             modelAndView.addObject(Constants.PRODUCTS_LIST_OBJ,products);
             modelAndView.setViewName(RedirectPages.PLP_PAGE);
         }
@@ -72,22 +75,21 @@ public class ProductsController {
     public ModelAndView getAll(@PathVariable("categoryId") long categoryId, @PathVariable("pageNumber") int pageNumber,
                                ModelAndView modelAndView, @SessionAttribute(Constants.SESSION_USER)UserDTO sessionUser){
         if (Objects.nonNull(sessionUser)){
-            final ProductGroupDTO productGroup = productGroupService.findByStoreId(sessionUser.getStoreDTO().getStoreId());
+            final ProductGroupDTO productGroup = productGroupService.findByStoreId(sessionUser.getStoreId());
             final List<Long> productIds = productService.getAllProductIdsByProductGroupId(productGroup.getProductGroupId());
 
 
             Pageable pageable = PageRequest.of(pageNumber,pageSize);
-            final List<ProductEntity> productEntities = productRepository.findAllByProductId(productIds,pageable);
-            final long productCount = productRepository.countByIsActiveTrueAndCategoryEntityCategoryId(categoryId);
+            final List<ProductDTO> products = productService.findAllByProductId(productIds,pageable);
+            final long productCount = productRepository.countByIsActiveTrueAndCategoryId(categoryId);
             final long nPages = productCount%pageSize==0?productCount/pageSize:(productCount/pageSize)+1;
-            final List<ProductDTO> products =  productEntities.stream().map(productMapper::from).collect(Collectors.toList());
             if(products.isEmpty()){
                 modelAndView.setViewName(RedirectPages.COMMON_ERROR_PAGE);
             }
             else{
                 modelAndView.addObject("currentPage",pageNumber);
                 modelAndView.addObject("totalPages",nPages);
-                modelAndView.addObject("categoryName",products.get(0).getCategoryDTO().getName());
+                modelAndView.addObject("categoryName",categoryRepository.findById(products.get(0).getCategoryId()).get().getName());
                 modelAndView.addObject(Constants.PRODUCTS_LIST_OBJ,products);
                 modelAndView.setViewName(RedirectPages.PLP_PAGE);
             }

@@ -10,6 +10,7 @@ public class ShoppingCartItemMapper {
     public ShoppingCartItemDTO from(final CartItemEntity cartItemEntity){
         final ShoppingCartItemDTO shoppingCartItemDTO = new ShoppingCartItemDTO();
         shoppingCartItemDTO.setItemId(cartItemEntity.getItemId());
+        shoppingCartItemDTO.setCartId(cartItemEntity.getCartId());
         shoppingCartItemDTO.setLineItemDiscount(cartItemEntity.getItemDiscount());
         shoppingCartItemDTO.setLineItemPrice(cartItemEntity.getItemPrice());
         shoppingCartItemDTO.setLineItemTotal(cartItemEntity.getItemTotalPrice());
@@ -22,6 +23,7 @@ public class ShoppingCartItemMapper {
     public CartItemEntity from(final ShoppingCartItemDTO shoppingCartItemDTO){
         final CartItemEntity cartItemEntity = new CartItemEntity();
         cartItemEntity.setItemId(shoppingCartItemDTO.getItemId());
+        cartItemEntity.setCartId(shoppingCartItemDTO.getCartId());
         cartItemEntity.setItemDiscount(shoppingCartItemDTO.getLineItemDiscount());
         cartItemEntity.setItemPrice(shoppingCartItemDTO.getLineItemPrice());
         cartItemEntity.setItemTotalPrice(shoppingCartItemDTO.getLineItemTotal());

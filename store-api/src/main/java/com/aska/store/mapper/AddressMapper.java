@@ -10,6 +10,8 @@ public class AddressMapper {
     public AddressDTO from(final AddressEntity addressEntity){
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setAddressId(addressEntity.getAddressId());
+        addressDTO.setStoreId(addressEntity.getStoreId());
+        addressDTO.setAddressId(addressEntity.getAddressId());
         addressDTO.setAddressLine1(addressEntity.getAddressLine1());
         addressDTO.setAddressLine2(addressEntity.getAddressLine2());
         addressDTO.setAddressLine3(addressEntity.getAddressLine3());
@@ -23,6 +25,8 @@ public class AddressMapper {
     public AddressEntity from(final AddressDTO addressDTO){
         AddressEntity addressEntity = new AddressEntity();
         addressDTO.setAddressId(addressDTO.getAddressId());
+        addressDTO.setStoreId(addressDTO.getStoreId());
+        addressDTO.setUserId(addressDTO.getUserId());
         addressDTO.setAddressLine1(addressDTO.getAddressLine1());
         addressDTO.setAddressLine2(addressDTO.getAddressLine2());
         addressDTO.setAddressLine3(addressDTO.getAddressLine3());

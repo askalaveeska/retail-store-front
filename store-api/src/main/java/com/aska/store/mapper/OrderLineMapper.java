@@ -10,6 +10,7 @@ public class OrderLineMapper {
     public OrderLineDTO from(final OrderLineEntity orderLineEntity){
         final OrderLineDTO orderLineDTO = new OrderLineDTO();
         orderLineDTO.setOrderLineId(orderLineEntity.getOrderLineId());
+        orderLineDTO.setOrderId(orderLineEntity.getOrderId());
         orderLineDTO.setPrice(orderLineEntity.getPrice());
         orderLineDTO.setProductId(orderLineEntity.getProductId());
         orderLineDTO.setProductName(orderLineEntity.getProductName());
@@ -20,6 +21,7 @@ public class OrderLineMapper {
     public OrderLineEntity from(final OrderLineDTO orderLineDTO){
         final OrderLineEntity orderLineEntity = new OrderLineEntity();
         orderLineEntity.setOrderLineId(orderLineDTO.getOrderLineId());
+        orderLineDTO.setOrderId(orderLineEntity.getOrderId());
         orderLineEntity.setPrice(orderLineDTO.getPrice());
         orderLineEntity.setProductId(orderLineDTO.getProductId());
         orderLineEntity.setProductName(orderLineDTO.getProductName());

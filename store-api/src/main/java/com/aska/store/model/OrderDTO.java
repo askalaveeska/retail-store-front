@@ -8,6 +8,7 @@ import java.util.List;
 public class OrderDTO {
 
     private long orderId;
+    private long userId;
     private Date orderDate;
     private Date lastUpdatedDate;
     private String orderEmail;
@@ -20,8 +21,9 @@ public class OrderDTO {
     private String country;
     private long pinCode;
     private Double orderTotal;
-    private String orderStatus;
+    private long orderStatus;
     private List<OrderLineDTO> orderLines;
+    private OrderStatusDTO orderStatusDTO;
 
     public long getOrderId() {
         return orderId;
@@ -135,11 +137,27 @@ public class OrderDTO {
         this.pinCode = pinCode;
     }
 
-    public String getOrderStatus() {
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(long orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public OrderStatusDTO getOrderStatusDTO() {
+        return orderStatusDTO;
+    }
+
+    public void setOrderStatusDTO(OrderStatusDTO orderStatusDTO) {
+        this.orderStatusDTO = orderStatusDTO;
     }
 }
