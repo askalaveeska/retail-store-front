@@ -101,6 +101,7 @@ public class DefaultCartService {
 
     private CartItemEntity getLineItem(final ProductEntity productEntity){
         final CartItemEntity cartItemEntity = new CartItemEntity();
+        cartItemEntity.setProductId(productEntity.getProductId());
         cartItemEntity.setProductName(productEntity.getProductName());
         cartItemEntity.setQuantity(productEntity.getQuantity());
         cartItemEntity.setItemPrice(productEntity.getSupplierPrice());

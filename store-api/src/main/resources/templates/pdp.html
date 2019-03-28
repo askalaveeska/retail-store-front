@@ -50,7 +50,7 @@
         <div class="col-md-4"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive " style="width:100%" alt="Image"></div>
         <form class="form-inline" th:action="@{/pushToCart.do}" th:object="${product}" th:method="post">
         <div class="col-md-8">
-            <h3 th:text="${product.productName}">PREMIUM RICE 1 KG</h3>
+            <h3 th:text="${product.productName}">Product Name</h3>
 
             <input type="hidden" th:field="${product.productId}" th:value="${product.productId}">
             <input type="hidden" th:field="${product.productName}" th:value="${product.productName}">
@@ -59,11 +59,11 @@
             <input type="hidden" th:field="${product.maxRetailPrice}" th:value="${product.maxRetailPrice}">
             <input type="hidden" th:field="${product.discountPrice}" th:value="${product.discountPrice}">
 
-            <span class="badge badge-pill badge-light" th:text="${'Rs. '+product.supplierPrice}">RS. 150</span>
-            <p th:text="${product.description}">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar</p>
+            <span>Price</span> <span class="badge badge-pill badge-light" th:text="${'Rs. '+product.supplierPrice}">RS. 150</span><br><br>
+            <!--<p th:text="${product.description}">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar</p>-->
             <div class="form-group" >
                 <label for="quantity">QTY:</label>
-                 <select class="form-control"  th:field="${product.quantity}" id="quantity" style="width: 50px;">
+                 <select class="form-control"  th:field="${product.quantity}" id="quantity" style="width: 60px;">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -74,8 +74,8 @@
             <div>
 
             </div>
-            <div style="height: 30px;"></div>
-            <button type="submit" class="btn btn-lg btn-primary btn-block" value="ADD TO CART"/>
+            <div style="height: 10px;"></div>
+            <input type="submit" class="btn btn-lg btn-primary btn-block" value="ADD TO CART"/>
         </div>
 
         </form>

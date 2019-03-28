@@ -1,7 +1,9 @@
 package com.aska.store.model;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by askalaveeska on 27/02/19.
@@ -9,13 +11,17 @@ import javax.validation.constraints.NotEmpty;
 public class ProductDTO {
 
 
+    @NotNull
     private long productId;
     private long categoryId;
     private long brandId;
     private boolean isActive;
     private String productName;
     private String description;
+    @Min(value = 1)
+    @Max(value = 5)
     private int quantity;
+    @NotNull
     private double supplierPrice;
     private double maxRetailPrice;
     private double discountPrice;

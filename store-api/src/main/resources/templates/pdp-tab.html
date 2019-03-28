@@ -2,16 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#">DESCRIPTION</a></li>
-                <li><a href="#">MANUFACTURAR</a></li>
-                <li><a href="#">REVIEW</a></li>
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#description-tab" data-toggle="tab">DESCRIPTION</a></li>
+                <li><a href="#manufacturer-tab" data-toggle="tab">MANUFACTURER</a></li>
+                <li><a href="#ingredient-tab" data-toggle="tab">INGREDIENTS</a></li>
             </ul>
+
+            <div class="tab-content">
+                <div id="description-tab" class="tab-pane fade in active">
+                    <span th:text="${product.description}">description</span>
+                </div>
+                <div id="manufacturer-tab" class="tab-pane fade">
+                    <span th:text="${product.description}">manufacturer</span>
+                </div>
+                <div id="ingredient-tab" class="tab-pane fade"  >
+                    <span th:text="${product.description}">ingredient</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

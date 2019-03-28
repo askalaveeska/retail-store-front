@@ -52,7 +52,7 @@ public class CartController {
 
     @GetMapping("launchCart.do")
     public ModelAndView loadCart(@SessionAttribute(name = Constants.SESSION_USER)UserDTO sessionUser,
-                                 @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart,
+                                 @SessionAttribute(name = Constants.SESSION_CART, required = false) ShoppingCartDTO sessionCart,
                                  ModelAndView modelAndView){
 
         final ShoppingCartDTO cartDTO = defaultCartService.getCart(sessionUser,sessionCart);
