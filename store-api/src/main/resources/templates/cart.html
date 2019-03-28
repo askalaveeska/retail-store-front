@@ -36,22 +36,27 @@
 
 <form class="form" action="review.html">
 <div class="container">
-    <table class="table table-hover">
-        <thead>
+    <table class="table table-hover  table-sm">
+        <thead class="thead-dark">
         <tr>
-            <th colspan="2">Product Details</th>
+
+            <th>Product Image</th>
+            <th>Product Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th >Remove</th>
+            <th></th>
+
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cartItem : ${cartObj.cartItems}">
-            <td><img src="https://placehold.it/150x80?text=IMAGE" style="width: 50px; height: 50px;" align="center"/></td>
-            <td><span  th:text="${cartItem.ProductName}"></span></td>
+        <tr th:each="cartItem,index : ${cartObj.cartItems}">
+            <form th:id="${index}" th:action="@{/updateQuantity.do}" th:object="${cartItem}" th:method="post">
+
+            <td> <img src="https://placehold.it/150x80?text=IMAGE" style="width: 50px; height: 50px;" align="center"/></td>
+            <td><span  th:text="${cartItem.ProductName}">Rs. 0</span></td>
             <td>
                 <div class="form-group" >
-                    <select class="form-control" id="sel1" placeholder="QTY" style="width: 50px;" >
+                    <select class="form-control quantity" placeholder="QTY" style="width: 60px;" th:value="${cartItem.quantity}" th:field="${cartItem.quantity}" onchange="this.form.submit()">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -61,12 +66,16 @@
                 </div>
             </td>
             <td><span  th:text="${cartItem.LineItemTotal}"></span></td>
-            <td >
-                <a href="#">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </a>
-            </td>
+                <td>
+                    <input type="hidden" th:field="${cartItem.productId}" th:value="${cartItem.productId}">
+                    <a th:href="${'removeItem.do/'+cartItem.cartItemId}" class="btn btn-info" role="button">
+                        Remove
+                    </a>
+                </td>
+                </form>
         </tr>
+        <tr>
+
         </tbody>
     </table>
 
@@ -74,7 +83,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4" style="text-align:right;">
+        <!--<div class="col-sm-4" style="text-align:right; width: 50%">-->
 
                 <!--<div class="form-group align-middle">-->
                     <!--<input type="email" class="form-control" id="email" placeholder="COUPON CODE">-->
@@ -86,23 +95,23 @@
                 <!--APPLY-->
             <!--</a>-->
         <!--</div>-->
-        <div class="col-sm-4">
+        <div class="col-sm-4" style="float:right;">
             <table class="table table-condensed">
                <tbody>
                <tr>
-                   <td><span>SUB TOTAL</span></td>
+                   <td><span>Sub Total</span></td>
                    <td>Rs. <span th:text="${cartObj.cartTotal}">0</span></td>
                </tr>
                <tr>
-                   <td><span>DELIVERY</span></td>
+                   <td><span>Delivery Charges</span></td>
                    <td>Rs. <span>0</span></td>
                </tr>
                <tr>
-                   <td><span>DISCOUNT</span></td>
+                   <td><span>Discount Amount</span></td>
                    <td>Rs. <span th:text="${cartObj.discountAmount}">0</span></td>
                </tr>
                <tr class="active">
-                   <td>TOTAL</td>
+                   <td>Total</td>
                    <td>Rs. <span th:text="${cartObj.cartTotal}">0</span></td>
                </tr>
                </tbody>
@@ -116,5 +125,13 @@
 </form>
 <div th:include="footer.html"></div>
 
+<script>
+    $( ".quantity" ).change(function() {
+        $.post( "test.php", { name: "John", time: "2pm" })
+                .done(function( data ) {
+                    alert( "Data Loaded: " + data );
+                });
+    });
+</script>
 </body>
 </html>
