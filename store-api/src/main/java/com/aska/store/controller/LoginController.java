@@ -45,6 +45,9 @@ public class LoginController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private DefaultCartService   defaultCartService;
+
     @Value("${current.store.id}")
     private long storeId;
 
@@ -68,6 +71,7 @@ public class LoginController {
         final Optional<UserDTO> userDTO =  userService.getUserDetails(loginDTO.getEmail(),loginDTO.getPassword());
         if(userDTO.isPresent() && userDTO.get().isUser()){
 
+            final ShoppingCartDTO shoppingCartDTO = defaultCartService.getCart(userDTO.get(),null);
             final ProductGroupDTO productGroup = productGroupService.findByStoreId(userDTO.get().getStoreId());
 
             final List<ProductGroupProductDTO> productGroupProducts = productGroupProductService.findByProductGroupId(productGroup.getProductGroupId());
@@ -75,6 +79,7 @@ public class LoginController {
             final List<CategoryDTO> categories =  productService.getDistinctCategoriesByProductIds(productIds);
 
             session.setAttribute(Constants.SESSION_USER,userDTO.get());
+            session.setAttribute(Constants.SESSION_CART, shoppingCartDTO);
             session.setAttribute(Constants.STORE_OBJ,userDTO.get().getStoreDTO());
             session.setAttribute(Constants.CATEGORY_LIST_OBJ,categories);
             modelAndView.addObject(Constants.CATEGORY_LIST_OBJ,categories);

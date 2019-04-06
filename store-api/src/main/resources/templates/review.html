@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Product list Page</title>
+    <title>Review Page</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
@@ -32,104 +32,131 @@
 <div th:include="header.html"></div>
 
 
-
-
-</div>
-
 <div th:include="navigation.html"></div>
 
-<div class="container">
-
-
-    <h2>Review Your Orders:</h2>
-
-</div>
 
 <div class="container">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th colspan="2">Product Details</th>
-            <th>Quantity</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><img src="../image/default_image.jpg" style="width: 50px; height: 50px;" align="center"/></td>
-            <td>John</td>
-            <td>
-                <span>2</span>
-            </td>
-            <td><div>Rs. 500</div></td>
-        </tr>
-        <tr>
-            <td><img src="../image/default_image.jpg" style="width: 50px; height: 50px;" align="center"/></td>
-            <td>John</td>
-            <td>
-                <span>2</span>
-            </td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td><img src="../image/default_image.jpg" style="width: 50px; height: 50px;" align="center"/></td>
-            <td>John</td>
-            <td>
-               <span>2</span>
-            </td>
-            <td>july@example.com</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="panel panel-success">
+        <div class="panel-heading">Your Order Details</div>
+        <div class="panel-body">
 
-</div>
+            <table  class="table table-hover table-bordered table-sm">
+                <thead class="thead-dark">
+                <tr>
 
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
 
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-8">
-        </div>
-        <div class="col-sm-4">
-            <table class="table table-condensed">
-                <thead>
-                <th colspan="2">
-                    CART SUMMARY :
-                </th>
+                </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><span>SUB TOTAL</span></td>
-                    <td>Rs. 150</td>
+                <tr th:each="cartItem,stat : ${cartObj.cartItems}" >
+
+
+                    <td style="vertical-align:middle"> <img src="https://placehold.it/150x80?text=IMAGE" style="width: 50px; height: 50px;" align="center"/></td>
+                    <td style="vertical-align:middle"><span  th:text="${cartItem.ProductName}">Rs. 100</span></td>
+                    <td style="vertical-align:middle"><span  th:text="${cartItem.quantity}">5</span></td>
+                    <td style="vertical-align:middle"><span  th:text="${cartItem.LineItemTotal}">12345</span></td>
                 </tr>
                 <tr>
-                    <td><span>DELIVERY</span></td>
-                    <td>Rs. 0</td>
+
+                </tbody>
+            </table >
+        </div>
+    </div>
+
+
+
+</div>
+<div class="container">
+    <div class="row">
+        <!--<div class="col-sm-4" style="text-align:right; width: 50%">-->
+
+        <!--<div class="form-group align-middle">-->
+        <!--<input type="email" class="form-control" id="email" placeholder="COUPON CODE">-->
+        <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="col-sm-4" style="text-align:left;">-->
+        <!--<a href="#" class="btn btn-info" >-->
+        <!--APPLY-->
+        <!--</a>-->
+        <!--</div>-->
+        <div class="col-sm-4" style="float:right;">
+            <table class="table table-condensed">
+                <tbody>
+                <tr>
+                    <td><span>Sub Total</span></td>
+                    <td>Rs. <span th:text="${cartObj.cartTotal}">0</span></td>
                 </tr>
                 <tr>
-                    <td><span>DISCOUNT</span></td>
-                    <td>Rs. 0</td>
+                    <td><span>Delivery Charges</span></td>
+                    <td>Rs. <span>0</span></td>
+                </tr>
+                <tr>
+                    <td><span>Discount Amount</span></td>
+                    <td>Rs. <span th:text="${cartObj.discountAmount}">0</span></td>
                 </tr>
                 <tr class="active">
-                    <td>TOTAL</td>
-                    <td>Rs. 150</td>
-                </tr>
-                <tr style="text-align:right;">
-                    <td colspan="2">
-                        <form class="form-inline" action="confirmation.html">
-                            <button type="submit" class="btn btn-danger">Place Order</button>
-                        </form>
-                    </td>
+                    <td>Total</td>
+                    <td>Rs. <span th:text="${cartObj.cartTotal}">0</span></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="panel panel-success">
+        <div class="panel-heading">Delivery Address</div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="/action_page.php">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="address">Address:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="address"  rows="3" readonly></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pin">Pincode:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="pin" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="city">City:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="city" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="state">State:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="state" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="country">Country:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="country" readonly>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" style="float: right">
+            <input type="submit" class="btn btn-lg btn-success btn-block" value="Place Order"/>
 
+        </div>
 
+    </div>
 
+</div>
 
 
 <div th:include="footer.html"></div>

@@ -33,54 +33,55 @@
 <div th:include="header.html"></div>
 
 <div th:include="navigation.html"></div>
-
-<form class="form" action="review.html">
 <div class="container">
-    <table class="table table-hover  table-sm">
-        <thead class="thead-dark">
-        <tr>
+    <div class="panel panel-success">
+        <div class="panel-heading">Your Cart Items</div>
+        <div class="panel-fbody">
+            <table class="table table-hover table-bordered table-sm">
+                <thead class="thead-dark">
+                <tr>
 
-            <th>Product Image</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th></th>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Action</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="cartItem,index : ${cartObj.cartItems}">
-            <form th:id="${index}" th:action="@{/updateQuantity.do}" th:object="${cartItem}" th:method="post">
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cartItem,stat : ${cartObj.cartItems}">
 
-            <td> <img src="https://placehold.it/150x80?text=IMAGE" style="width: 50px; height: 50px;" align="center"/></td>
-            <td><span  th:text="${cartItem.ProductName}">Rs. 0</span></td>
-            <td>
-                <div class="form-group" >
-                    <select class="form-control quantity" placeholder="QTY" style="width: 60px;" th:value="${cartItem.quantity}" th:field="${cartItem.quantity}" onchange="this.form.submit()">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-            </td>
-            <td><span  th:text="${cartItem.LineItemTotal}"></span></td>
-                <td>
-                    <input type="hidden" th:field="${cartItem.productId}" th:value="${cartItem.productId}">
-                    <a th:href="${'removeItem.do/'+cartItem.cartItemId}" class="btn btn-info" role="button">
-                        Remove
-                    </a>
-                </td>
-                </form>
-        </tr>
-        <tr>
 
-        </tbody>
-    </table>
+                    <td style="vertical-align:middle"> <img src="https://placehold.it/150x80?text=IMAGE" style="width: 50px; height: 50px;" align="center"/></td>
+                    <td style="vertical-align:middle"><span  th:text="${cartItem.ProductName}">Rs. 0</span></td>
+                    <td style="vertical-align:middle">
+                        <form th:id="${stat.index + 'removeItem'}" th:action="@{/removeItem.do}"  th:method="delete">
+                            <input type="hidden"  th:value="${cartItem.itemId}" name="cartItemId">
+                        </form>
+                        <div class="form-group" >
+                            <form th:id="${stat.index + 'updateQuantity'}" th:action="@{/updateQuantity.do}"  th:method="post">
+                                <input type="number" name="quantity" th:value="${cartItem.quantity}" id="quantity" style="width: 40px;" >
+                                <input type="hidden"  th:value="${cartItem.itemId}" name="removeCartItemId">
+                            </form>
+                        </div>
+                    </td>
+                    <td style="vertical-align:middle"><span  th:text="${cartItem.LineItemTotal}"></span></td>
+                    <td style="vertical-align:middle">
+                        <button type="submit" class="btn btn-default btn-sm" th:form="${stat.index + 'removeItem'}">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
 </div>
-
 <div class="container">
     <div class="row">
         <!--<div class="col-sm-4" style="text-align:right; width: 50%">-->
@@ -119,10 +120,57 @@
         </div>
     </div>
 </div>
+
 <div class="container">
-    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Continue"/>
+    <div class="panel panel-success">
+        <div class="panel-heading">Delivery Address</div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="/action_page.php">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="address">Address:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="address" placeholder="Enter address details"  rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pin">Pincode:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="pin" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="city">City:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="city" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="state">State:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="state" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="country">Country:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="country" readonly>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" style="float: right">
+
+                <input type="submit" class="btn btn-lg btn-success btn-block" value="Continue"/>
+
+        </div>
+
+    </div>
+
+</div>
 <div th:include="footer.html"></div>
 
 <script>

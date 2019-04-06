@@ -134,7 +134,7 @@
     <p class="text-danger" th:if="${error} != null" th:text="${error.message}"></p>
 
     <div class="form-label-group">
-        <input type="email" th:field="*{email}" id="email" class="form-control" placeholder="Email Address" required autofocus>
+        <input type="email" th:field="*{email}" id="email" class="form-control" placeholder="Email Address" required autofocus value="askalaveeska@gmail.com">
         <label for="email">Enter Email ID </label>
         <div th:each="error : ${errors}" th:if="${errors} !=null" >
             <p class="text-danger" th:if="${error.field} == 'email'" th:text="${error.message}"></p>
@@ -142,7 +142,7 @@
     </div>
 
     <div class="form-label-group">
-        <input type="password" th:field="*{password}" id="password" class="form-control" placeholder="Password" required>
+        <input type="password" th:field="*{password}" id="password" class="form-control" placeholder="Password" required value="P@ssw0rd">
         <label for="password">Password</label>
         <div th:each="error : ${errors}" th:if="${errors} !=null" >
             <p class="text-danger" th:if="${error.field} == 'password'" th:text="${error.message}"></p>

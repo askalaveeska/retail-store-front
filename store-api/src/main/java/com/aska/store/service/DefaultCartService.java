@@ -135,10 +135,13 @@ public class DefaultCartService {
     public  ShoppingCartDTO updateItemQuantity(final ShoppingCartDTO sessionCart, final Long cartItemId, final int quantity){
 
         final ShoppingCartEntity shoppingCartEntity = shoppingCartMapper.from(sessionCart);
-        List<CartItemEntity> shoppingCartItems =  shoppingCartEntity.getCartItems();
+
+        List<CartItemEntity> shoppingCartItems = cartItemRepository.findAllByCartId(shoppingCartEntity.getCartId());
+
         Optional<CartItemEntity> cartItemEntity = shoppingCartItems.stream().filter(sci->sci.getItemId() == cartItemId).findFirst();
         cartItemEntity.get().setQuantity(quantity);
         cartItemEntity.get().setItemTotalPrice(cartItemEntity.get().getItemPrice() * cartItemEntity.get().getQuantity());
+
         shoppingCartItems.removeIf(sci->sci.getItemId() == cartItemId);
         shoppingCartItems.add(cartItemEntity.get());
         shoppingCartEntity.setCartTotal(shoppingCartItems.stream().mapToDouble(sci->sci.getItemTotalPrice()).sum());

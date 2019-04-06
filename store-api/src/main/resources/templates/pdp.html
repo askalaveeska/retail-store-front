@@ -59,17 +59,11 @@
             <input type="hidden" th:field="${product.maxRetailPrice}" th:value="${product.maxRetailPrice}">
             <input type="hidden" th:field="${product.discountPrice}" th:value="${product.discountPrice}">
 
-            <span>Price</span> <span class="badge badge-pill badge-light" th:text="${'Rs. '+product.supplierPrice}">RS. 150</span><br><br>
+             <span class="badge badge-pill badge-light" th:text="${'Rs. '+product.supplierPrice}">RS. 150</span><br><br>
             <!--<p th:text="${product.description}">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar</p>-->
             <div class="form-group" >
                 <label for="quantity">QTY:</label>
-                 <select class="form-control"  th:field="${product.quantity}" id="quantity" style="width: 60px;">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                     <option value="5">5</option>
-                </select>
+                <input type="number" th:field="${product.quantity}" th:value="${product.quantity}" id="quantity" style="width: 40px;" >
             </div>
             <div>
 

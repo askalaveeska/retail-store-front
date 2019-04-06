@@ -86,8 +86,8 @@ public class CartController {
 
     }
 
-    @PostMapping("updateQuantity.do/{cartItemId}/{quantity}")
-    public ModelAndView updateQuantity(@PathVariable("cartItemId") final long cartItemId, @PathVariable("quantity") final int quantity,
+    @PostMapping("updateQuantity.do")
+    public ModelAndView updateQuantity(@RequestParam("cartItemId") final long cartItemId, @RequestParam("quantity") final int quantity,
                                          @SessionAttribute(name = Constants.SESSION_CART) ShoppingCartDTO sessionCart, ModelAndView modelAndView,HttpSession session){
         final ShoppingCartDTO shoppingCartDTO = defaultCartService.updateItemQuantity(sessionCart,cartItemId,quantity);
         modelAndView.addObject(Constants.CART_OBJ,shoppingCartDTO);
